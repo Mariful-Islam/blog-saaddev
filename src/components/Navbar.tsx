@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom"
 import { CustomModal } from "../utils"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Cross, Search } from "../Icons"
 
 
@@ -30,8 +30,8 @@ const Navbar = () => {
   ]
 
   const [search, setSearch] = useState("")
-  const [searchResults, setSearchResults] = useState<any[]>([])
-  const handleSearch = (e: any) => {
+  const [searchResults, setSearchResults] = useState<string[]>([])
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
     setSearchResults(sampleBlog.filter((blog) => blog.toLowerCase().includes(search.toLowerCase())))
   }

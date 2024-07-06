@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Blog = () => {
     return (
         <div className="grid grid-cols-3 gap-6 bg-blue-200 w-full h-screen px-4">
