@@ -1,8 +1,19 @@
 import { Link, NavLink } from "react-router-dom"
-import { CustomModal } from "../utils"
+import { CustomModal, DropdownMenu } from "../utils"
 import React, { useState } from "react"
 import { Cross, Search } from "../Icons"
+import { MenuItemProps } from "../utils/types"
 
+
+
+const menuItems: MenuItemProps[] = [
+  { type: 'link', label: 'Blog', href: '/blog' },
+  { type: 'link', label: 'News', href: '/news' },
+  { type: 'link', label: 'Profile', href: `/profile/hghjg` },
+  { type: 'link', label: 'Login', href: '/login' },
+  { type: 'link', label: 'Signup', href: '/signup' },
+  { type: 'button', label: 'Sign out', onClick: () => console.log('Signing out...') },
+]
 
 const Navbar = () => {
 
@@ -37,10 +48,10 @@ const Navbar = () => {
   }
 
   return (
-    <div className="pt-4 px-[10%] bg-blue-600">
+    <div className="pt-4 px-4 md:px-[10%] bg-blue-600">
       <div className="flex justify-between items-center pb-4">
-        <Link to="/" className="text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
-        <div className="flex items-center gap-6 font-semibold text-white">
+        <Link to="/" className="text-lg sm:text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
+        <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
           <NavLink to="/blog">Blog</NavLink>
           <NavLink to="/news">News</NavLink>
           <NavLink to="/profile/hghjg">Profile</NavLink>
@@ -50,10 +61,11 @@ const Navbar = () => {
         </div>
         <div className="flex gap-8 items-center">
           <Search onClick={() => handleOpenModal("search")} stroke="white" />
-          <button onClick={() => handleOpenModal("subscribe")} className="px-6 py-2 text-blue-600 bg-white rounded-md font-semibold">Subscribe</button>
+          <button onClick={() => handleOpenModal("subscribe")} className="px-6 py-2 text-blue-600 bg-white rounded-md font-semibold hidden sm:block">Subscribe</button>
+          <DropdownMenu buttonText="" menuItems={menuItems} className="mh:hidden" />
         </div>
       </div>
-      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} >
+      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[60%]" className="pt-[70px]">
         <div className="bg-white rounded-md px-8 py-2 flex items-center gap-6">
 
           <input
@@ -76,7 +88,7 @@ const Navbar = () => {
           </div>
         </div>
       </CustomModal>
-      <CustomModal isOpen={isModalOpen.subscribe} onClose={handleCloseModal}>
+      <CustomModal isOpen={isModalOpen.subscribe} onClose={handleCloseModal} className="pt-[230px]">
         <div className="p-6 flex flex-col gap-6">
           <div className="flex justify-between items-center">
             <span className="font-semibold">Subscribe</span>

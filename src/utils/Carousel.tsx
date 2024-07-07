@@ -18,9 +18,9 @@ const defaultSettings: Settings = {
     pauseOnHover: true
 };
 
-const Carousel: React.FC<CarouselProps> = ({ items, settings = defaultSettings }) => {
+const Carousel: React.FC<CarouselProps> = ({ items, settings = defaultSettings, className }) => {
     return (
-        <div className="carousel w-full overflow-hidden">
+        <div className={`carousel w-full overflow-hidden ${className}`}>
             <Slider {...settings}>
                 {items.map((item, idx) => (
                     <div key={idx} className="carousel-slide w-full">

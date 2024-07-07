@@ -12,4 +12,12 @@ export interface ButtonTypes {
 export interface CarouselProps {
     items: ReactNode[];
     settings?: Settings;
+    className?: string;
+}
+
+export interface MenuItemProps {
+    type: 'link' | 'button';
+    label: string;
+    href?: string;
+    onClick?: () => void;
 }

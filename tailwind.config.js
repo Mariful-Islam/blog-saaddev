@@ -5,7 +5,11 @@ export default {
       "./node_modules/flowbite/**/*.js,ts,tsx,jsx"
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        mh: "960px"
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')
