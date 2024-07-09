@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import Navbar from '../components/Navbar'
 import { Outlet } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const RootLayout = ({ children }: { children?: ReactNode }) => {
   return (
@@ -10,6 +11,7 @@ const RootLayout = ({ children }: { children?: ReactNode }) => {
         {children}
         <Outlet />
       </div>
+      <Footer />
     </div>
   )
 }

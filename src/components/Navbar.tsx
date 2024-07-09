@@ -52,7 +52,6 @@ const Navbar = () => {
       <div className="flex justify-between items-center pb-4">
         <Link to="/" className="text-lg sm:text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
         <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
-          <NavLink to="/blog">Blog</NavLink>
           <NavLink to="/news">News</NavLink>
           <NavLink to="/profile/hghjg">Profile</NavLink>
           <NavLink to="/login">Login</NavLink>
@@ -65,7 +64,7 @@ const Navbar = () => {
           <DropdownMenu buttonText="" menuItems={menuItems} className="mh:hidden" />
         </div>
       </div>
-      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[60%]" className="pt-[70px]">
+      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[400px]" className="pt-[70px]">
         <div className="bg-white rounded-md px-8 py-2 flex items-center gap-6">
 
           <input

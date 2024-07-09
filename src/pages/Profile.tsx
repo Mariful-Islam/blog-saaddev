@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Github, Linkedin, Location, Twitter } from "../Icons";
 import { useState, ChangeEvent } from "react";
-import { blogs } from "./Home";
+import { blogs } from "../components/Home/HomeMain";
 
 
 const Profile = () => {
