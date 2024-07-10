@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import ReactQuill, { Quill } from 'react-quill';
+import React, { useRef } from 'react';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 // import './QuillEditor.css'; // Import custom CSS for further customization
 
@@ -23,12 +23,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder 
         ],
     };
 
-    useEffect(() => {
-        if (quillRef.current) {
-            const quill = quillRef.current.getEditor();
-            // Access the Quill instance if needed
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (quillRef.current) {
+    //         const quill = quillRef.current.getEditor();
+    //         console.log(quill)
+    //         // Access the Quill instance if needed
+    //     }
+    // }, []);
 
     return (
         <div className="my-4">

@@ -64,7 +64,7 @@ const Navbar = () => {
           <DropdownMenu buttonText="" menuItems={menuItems} className="mh:hidden" />
         </div>
       </div>
-      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[400px]" className="pt-[70px]">
+      <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[350px] sm:max-w-[350px]" className="pt-[70px]">
         <div className="bg-white rounded-md px-8 py-2 flex items-center gap-6">
 
           <input
