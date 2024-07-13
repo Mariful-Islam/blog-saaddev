@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const API_URL = import.meta.env.API_URL || "https://saaddev.pythonanywhere.com"
+export const API_URL = "https://saaddev.pythonanywhere.com"
 
 const useInterceptor = () => {
     // Create a new axios instance

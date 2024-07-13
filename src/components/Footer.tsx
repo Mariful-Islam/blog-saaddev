@@ -3,15 +3,15 @@ import Redirect from "../assets/icons/Redirect.png"
 
 const Footer = () => {
     return (
-        <div className="h-[400px] px-4 md:px-[10%] py-10 mt-[100px] border-t flex flex-row gap-12">
-            <div className="flex flex-col justify-center">
+        <div className="h-[400px] px-4 md:px-[10%] py-10 mt-[100px] border-t flex flex-col md:flex md:flex-row gap-12">
+            <div className="flex flex-col justify-center items-center md:items-start">
                 <strong className="text-4xl">Mariful Islam</strong>
                 <p>Software engineer at Bytenyx Limited</p>
                 <p>mariful@heliosinsider.com</p>
                 <Link to="https://saaddev-io.vercel.app/" target="__blank" className="flex items-center gap-1 hover:text-blue-600 hover:underline">website <img src={Redirect} style={{ height: 15, width: 15, fill: 'blue' }} alt="" /></Link>
 
             </div>
-            <div className="flex gap-12">
+            <div className="grid grid-cols-2 gap-12">
                 <div className="flex flex-col gap-2">
                     <strong className="text-xl pb-4">Services</strong>
                     <ul className="list-none flex flex-col gap-2">

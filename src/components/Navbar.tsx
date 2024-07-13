@@ -1,8 +1,10 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { CustomModal, DropdownMenu } from "../utils"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Cross, Search } from "../Icons"
 import { MenuItemProps } from "../utils/types"
+import { PostsContext } from "../context/postsContext"
+import { PostTypes } from "./Home/HomeMain"
 
 
 
@@ -11,12 +13,12 @@ const menuItems: MenuItemProps[] = [
   { type: 'link', label: 'News', href: '/news' },
   { type: 'link', label: 'Profile', href: `/profile/hghjg` },
   { type: 'link', label: 'Login', href: '/login' },
-  { type: 'link', label: 'Signup', href: '/signup' },
+  { type: 'link', label: 'Write', href: '/create_post' },
   { type: 'button', label: 'Sign out', onClick: () => console.log('Signing out...') },
 ]
 
 const Navbar = () => {
-
+  const navigate = useNavigate()
   const [isModalOpen, setModalOpen] = useState<any>({ search: false, subscribe: false })
 
   const handleOpenModal = (type: any) => {
@@ -26,25 +28,21 @@ const Navbar = () => {
   }
   const handleCloseModal = () => setModalOpen({ search: false, subscribe: false })
 
-  const sampleBlog = [
-    "Django developer needed for our company",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    "Django auth token simple json web token session token all-auth token",
-    " Keir Starmer will be Britain's next prime minister with his centre left Labour Party expected to "
-  ]
+  const { posts }: any = useContext(PostsContext)
 
   const [search, setSearch] = useState("")
-  const [searchResults, setSearchResults] = useState<string[]>([])
+  const [searchResults, setSearchResults] = useState<PostTypes[]>([])
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
-    setSearchResults(sampleBlog.filter((blog) => blog.toLowerCase().includes(search.toLowerCase())))
+    setSearchResults(posts.filter((post: any) => post.title.toLowerCase().includes(search.toLowerCase()) ||
+      post.content.toLowerCase().includes(search.toLowerCase())
+    ))
+  }
+
+  const searchNavigate = (e: any, id: any) => {
+    e.preventDefault()
+    navigate(`/post/${id}`)
+    handleCloseModal()
   }
 
   return (
@@ -54,8 +52,9 @@ const Navbar = () => {
         <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
           <NavLink to="/news">News</NavLink>
           <NavLink to="/profile/hghjg">Profile</NavLink>
+          <NavLink to="/create_post">Write</NavLink>
           <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Signup</NavLink>
+
           <NavLink to="/logout">Logout</NavLink>
         </div>
         <div className="flex gap-8 items-center">
@@ -80,8 +79,8 @@ const Navbar = () => {
         </div>
         <div className={`py-4 ${searchResults.length !== 0 && search.length !== 0 ? '' : 'hidden'}`}>
           <div className="bg-white rounded-b rounded-l rounded-r border-t-2 flex flex-col max-h-[400px] overflow-y-auto">
-            {searchResults.map((blog) => (
-              <strong className="py-2 px-6 cursor-pointer border-b hover:bg-blue-100 hover:text-blue-600">{blog}</strong>
+            {searchResults.map((post, i) => (
+              <span key={i} onClick={(e) => searchNavigate(e, post.id)} className="py-2 px-6 cursor-pointer border-b hover:bg-blue-100 hover:text-blue-600">{post.title}</span>
             ))}
 
           </div>

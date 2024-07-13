@@ -1,7 +1,8 @@
+import PostCreateMain from "../components/post-create/PostCreateMain"
+
 const PostCreate = () => {
-    return (
-        <div>PostCreate</div>
-    )
+
+    return <PostCreateMain />
 }
 
 export default PostCreate

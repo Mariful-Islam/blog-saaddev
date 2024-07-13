@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Carousel, TimeFormat } from "../../utils";
-import useApi from "../../utils/api";
-import { useEffect, useState } from "react";
+import { Carousel, ExtractText, TimeFormat } from "../../utils";
+import { useContext } from "react";
+import { PostsContext } from "../../context/postsContext";
 
 export interface PostTypes {
     id: number;
@@ -30,34 +30,25 @@ const items1 = [
 ];
 
 const HomeMain = () => {
-    const api = useApi()
-    const [posts, setPosts] = useState<PostTypes[]>([])
-    console.log(posts)
-    useEffect(() => {
-        getPosts()
-    }, [])
-    const getPosts = async () => {
-        try {
-            const response = await api.posts();
-            setPosts(response.data);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
-    }
+    const { posts }: any = useContext(PostsContext)
     return (
         <div className="">
             <div className="bg-blue-600">
                 <Carousel items={items1} className="h-1/2" />
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4 py-8 px-[10%]">
-                {posts?.map((post, index) => (
-                    <div key={index} className="border border-blue-600 max-w-[300px] p-6 rounded-md flex flex-col gap-4 shadow-lg">
+            <div className="pt-12 px-4 md:px-[10%]">
+                <strong>Total: {posts.length}</strong>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-8 px-4 md:px-[10%]">
+                {posts?.map((post: any, index: number) => (
+                    <div key={index} className="border border-blue-600 p-6 rounded-md flex flex-col gap-4 shadow-lg">
                         <Link to={`/post/${post.id}/`} className="text-xl font-semibold hover:text-blue-600 cursor-pointer">{post.title}</Link>
-                        <p className="text-justify">{post.content.slice(0, 200)}</p>
+                        <p className="text-justify whitespace-pre-line">{ExtractText(post.content).slice(0, 200)}</p>
                         <div className="flex flex-wrap gap-2">
-                            {post.tag_list.map((tag) => (
-                                <Link to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
+                            {post.tag_list.map((tag: any, i: number) => (
+                                <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
                             ))}
                         </div>
                         <div className="flex justify-between items-center">

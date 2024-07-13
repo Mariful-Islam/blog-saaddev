@@ -3,6 +3,9 @@ import { Github, Linkedin, Location, Twitter } from "../Icons";
 import { useState, ChangeEvent, useEffect } from "react";
 import useApi from "../utils/api";
 import { PostTypes } from "../components/Home/HomeMain";
+import { CommentTypes } from "../components/post-view/Comment";
+import UserPosts from "../components/profile/UserPosts";
+import UserComments from "../components/profile/UserComments";
 
 
 const Profile = () => {
@@ -10,8 +13,10 @@ const Profile = () => {
     const { name } = useParams()
     const api = useApi()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
+    const [userComments, setUserComments] = useState<CommentTypes[]>([])
     useEffect(() => {
         getUserPosts()
+        getUserComments()
     }, [])
     const getUserPosts = async () => {
         try {
@@ -21,12 +26,20 @@ const Profile = () => {
             console.log("Error fetching user posts", error)
         }
     }
+    const getUserComments = async () => {
+        try {
+            const response = await api.userComments(name ? name : "")
+            setUserComments(response.data)
+        } catch (error) {
+            console.log("Error fetching user posts", error)
+        }
+    }
     const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setProfileImage(e.target.files[0]);
         }
     };
-
+    const [open, setOpen] = useState<boolean>(false)
     return (
         <div className="px-4 md:px-[10%] flex flex-col gap-8">
             <div className="h-[400px] relative border border-blue-600">
@@ -77,29 +90,28 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col sm:flex sm:flex-row gap-4 w-full pb-10">
                     <div className="border border-blue-600 shadow-lg rounded-md h-[200px] w-full sm:w-[30%] p-4">
-                        mkcpjfvkf
+                        <ul className="list-none">
+                            <li className={`text-gray-500 cursor-pointer flex justify-between items-center px-3 py-1 ${!open ? 'bg-gray-100' : ''}`}
+                                onClick={() => setOpen(false)}>
+                                <span>Posts</span> <span>{userPosts.length}</span></li>
+                            <li className={`text-gray-500 cursor-pointer flex justify-between items-center px-3 py-1 ${open ? 'bg-gray-100' : ''}`}
+                                onClick={() => setOpen(true)}>
+                                <span>Comments</span>  <span>{userComments.length}</span></li>
+                        </ul>
                     </div>
-                    <div className="flex flex-col gap-4 border border-blue-600 shadow-lg rounded-md w-full sm:w-[70%] p-4">
-                        {userPosts.map((post) => (
-                            <div className="border-b-2 pb-3 flex flex-col gap-4">
-                                <Link to={`/post/${post.id}/`} className="text-xl font-semibold hover:text-blue-600">{post.title}</Link>
-                                <p>
-                                    {post.content}
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                    {post.tag_list.map((tag) => (
-                                        <Link to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
-                                    ))}
-                                </div>
-                                <div className="flex justify-between">
-                                    <Link to={`/profile/saad`} className="text-blue-600 cursor-pointer hover:underline">{post.user}</Link> <span className="text-sm">{post.updated}</span>
-                                </div>
-                            </div>
-                        ))}
+
+
+                    <div className={`${!open ? '' : 'hidden'} w-full sm:w-[70%]`}>
+                        <UserPosts name={name ? name : ''} />
+
+                    </div>
+
+                    <div className={`${open ? '' : 'hidden'} w-full sm:w-[70%]`}>
+                        <UserComments userComments={userComments} />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

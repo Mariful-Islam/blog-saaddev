@@ -7,9 +7,10 @@ interface QuillEditorProps {
     value: string;
     onChange: (content: string) => void;
     placeholder?: string;
+    className?: string;
 }
 
-const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder }) => {
+const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder, className }) => {
     const quillRef = useRef<ReactQuill | null>(null);
 
     const modules = {
@@ -39,7 +40,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder 
                 onChange={onChange}
                 placeholder={placeholder}
                 theme="snow"
-                className="bg-white border border-gray-300 rounded-md shadow-sm"
+                className={`h-64 rounded-md shadow-sm ${className}`}
                 modules={modules}
             />
         </div>

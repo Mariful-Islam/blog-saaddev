@@ -7,17 +7,28 @@ interface DropdownMenuProps {
     buttonText: string;
     menuItems: MenuItemProps[];
     className?: string;
+    menuStyle?: string;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ buttonText, menuItems, className }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ buttonText, menuItems, className, menuStyle = "three_line" }) => {
     return (
         <Menu as="div" className={`relative inline-block text-left ${className}`}>
             <div>
-                <MenuButton className="flex flex-col w-full justify-center gap-2 gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-blue-600">
+                <MenuButton className="flex flex-col w-full justify-center gap-2 gap-x-1.5 rounded-md text-sm font-semibold text-white shadow-sm ring-0 ">
                     {buttonText}
-                    <span className='h-[2px] bg-white w-8'></span>
-                    <span className='h-[2px] bg-white w-8'></span>
-                    <span className='h-[2px] bg-white w-8'></span>
+                    {menuStyle === "three_line" ?
+                        <div className={`flex flex-col gap-2`}>
+                            <span className='h-[2px] bg-white w-6'></span>
+                            <span className='h-[2px] bg-white w-6'></span>
+                            <span className='h-[2px] bg-white w-6'></span>
+                        </div> :
+                        <div className={`flex gap-1 py-2 ${menuStyle === "three_dot" ? '' : 'hidden'}`}>
+                            <span className='h-1 w-1 rounded-full bg-gray-400'></span>
+                            <span className='h-1 w-1 rounded-full bg-gray-400'></span>
+                            <span className='h-1 w-1 rounded-full bg-gray-400'></span>
+
+                        </div>
+                    }
                 </MenuButton>
             </div>
 
