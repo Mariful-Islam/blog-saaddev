@@ -33,7 +33,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder,
     // }, []);
 
     return (
-        <div className="my-4">
+        <div className="">
             <ReactQuill
                 ref={quillRef}
                 value={value}

@@ -1,17 +1,17 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { CustomModal, DropdownMenu } from "../utils"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Cross, Search } from "../Icons"
 import { MenuItemProps } from "../utils/types"
 import { PostsContext } from "../context/postsContext"
 import { PostTypes } from "./Home/HomeMain"
-
+import Cookies from "js-cookie"
 
 
 const menuItems: MenuItemProps[] = [
   { type: 'link', label: 'Blog', href: '/blog' },
   { type: 'link', label: 'News', href: '/news' },
-  { type: 'link', label: 'Profile', href: `/profile/hghjg` },
+  { type: 'link', label: 'Profile', href: `/profile/${Cookies.get("name")}` },
   { type: 'link', label: 'Login', href: '/login' },
   { type: 'link', label: 'Write', href: '/create_post' },
   { type: 'button', label: 'Sign out', onClick: () => console.log('Signing out...') },
@@ -20,7 +20,11 @@ const menuItems: MenuItemProps[] = [
 const Navbar = () => {
   const navigate = useNavigate()
   const [isModalOpen, setModalOpen] = useState<any>({ search: false, subscribe: false })
+  const [name, setName] = useState<string>("")
 
+  useEffect(() => {
+    setName(Cookies?.get("name") ?? '')
+  }, [])
   const handleOpenModal = (type: any) => {
     type === "subscribe" ?
       setModalOpen({ ...isModalOpen, subscribe: true }) :
@@ -51,7 +55,7 @@ const Navbar = () => {
         <Link to="/" className="text-lg sm:text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
         <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
           <NavLink to="/news">News</NavLink>
-          <NavLink to="/profile/hghjg">Profile</NavLink>
+          <NavLink to={`/profile/${name}`}>Profile</NavLink>
           <NavLink to="/create_post">Write</NavLink>
           <NavLink to="/login">Login</NavLink>
 

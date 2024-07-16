@@ -1,22 +1,26 @@
 import { Link, useParams } from "react-router-dom";
-import { Github, Linkedin, Location, Twitter } from "../Icons";
-import { useState, ChangeEvent, useEffect } from "react";
+import { Github, Linkedin, Twitter } from "../Icons";
+import { useState, ChangeEvent, useEffect, useContext } from "react";
 import useApi from "../utils/api";
 import { PostTypes } from "../components/Home/HomeMain";
 import { CommentTypes } from "../components/post-view/Comment";
 import UserPosts from "../components/profile/UserPosts";
 import UserComments from "../components/profile/UserComments";
-
+import ProfileContext from "../context/ProrfileContext";
+import mail from "../assets/icons/mail.svg"
 
 const Profile = () => {
-    const [profileImage, setProfileImage] = useState<File | null>(null);
+    // const [profileImage, setProfileImage] = useState<File | Blob>();
     const { name } = useParams()
     const api = useApi()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
     const [userComments, setUserComments] = useState<CommentTypes[]>([])
+    const profileContext = useContext(ProfileContext)
+
     useEffect(() => {
         getUserPosts()
         getUserComments()
+        profileContext?.getProfile()
     }, [])
     const getUserPosts = async () => {
         try {
@@ -35,52 +39,60 @@ const Profile = () => {
         }
     }
     const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setProfileImage(e.target.files[0]);
-        }
+        // if (e.target.files) {
+        //     setProfileImage(e.target.files[0]);
+        // }
+        console.log(e)
     };
     const [open, setOpen] = useState<boolean>(false)
+    console.log(profileContext?.profile)
     return (
         <div className="px-4 md:px-[10%] flex flex-col gap-8">
-            <div className="h-[400px] relative border border-blue-600">
-                <div className="bg-blue-600 h-[150px]"></div>
-                <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] border border-blue-600 group">
-                    <label htmlFor="profile_image">
-                        {profileImage ? (
-                            <img
-                                src={URL.createObjectURL(profileImage)}
-                                alt="Profile"
-                                className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
-                            />
-                        ) : (
-                            <img
-                                src="https://picsum.photos/id/1/200/300"
-                                alt="Placeholder"
-                                className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
-                            />
-                        )}
-                    </label>
-                    <input
-                        id="profile_image"
-                        type="file"
-                        className="hidden"
-                        onChange={onChangeImage}
-                    />
-                </div>
-                <div className="pt-16 flex justify-center">
-                    <strong className="text-2xl">{name}</strong>
-                </div>
-                <div className="pt-6 flex flex-col gap-6">
-                    <div className="flex justify-center items-center gap-2">
-                        <Location className="h-6 w-6" /> Rajshahi, Bangladesh
+            {profileContext ?
+                <div className="h-[400px] relative border border-blue-600">
+                    <div className="bg-blue-600 h-[150px]"></div>
+                    <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] border border-blue-600 group">
+                        <label htmlFor="profile_image">
+                            {profileContext ? (
+                                <img
+                                    src={profileContext?.profile?.picture}
+                                    alt="Profile"
+                                    className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
+                                />
+                            ) : (
+                                <img
+                                    src="https://picsum.photos/id/1/200/300"
+                                    alt="Placeholder"
+                                    className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
+                                />
+                            )}
+                        </label>
+                        <input
+                            id="profile_image"
+                            type="file"
+                            className="hidden"
+                            onChange={onChangeImage}
+                        />
                     </div>
-                    <div className="flex justify-center items-center gap-6">
-                        <Link to="#"><Linkedin className="h-6 w-6" /></Link>
-                        <Link to="#"><Github className="h-6 w-6" /></Link>
-                        <Link to="#"><Twitter className="h-6 w-6" /></Link>
+                    <div className="pt-16 flex justify-center">
+                        <strong className="text-2xl">{profileContext?.profile?.name}</strong>
+                    </div>
+                    <div className="pt-6 flex flex-col gap-6">
+                        <div className="flex justify-center items-center gap-4">
+                            {/* <span className="flex items-center gap-2"><Location className="h-6 w-6" /> Rajshahi, Bangladesh </span>  */}
+                            <span className="flex items-center gap-2"><img src={mail} alt="" /> {profileContext?.profile?.email}</span>
+                        </div>
+
+                        <div className="flex justify-center items-center gap-6">
+                            <Link to="#"><Linkedin className="h-6 w-6" /></Link>
+                            <Link to="#"><Github className="h-6 w-6" /></Link>
+                            <Link to="#"><Twitter className="h-6 w-6" /></Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+                :
+                <></>
+            }
             <div className="flex flex-wrap gap-6">
                 <div className="p-4 flex flex-col gap-3 border border-blue-600 shadow-lg rounded-md w-full">
                     <strong className="text-xl border-b">Bio</strong>

@@ -43,15 +43,15 @@ const PostViewMain = () => {
     }
     const sanitizedContent = post ? DOMPurify.sanitize(post.content) : "";
     return (
-        <div className="px-[12%] py-10 flex flex-col gap-10">
+        <div className="px-[12%] py-10 flex flex-col gap-4">
 
             <div className="flex justify-between">
                 <Link to={`/profile/${post?.user}`} className='text-blue-600 font-semibold hover:underline'>{post?.user}</Link>
                 <DropdownMenu buttonText='' menuItems={postOption} className='' menuStyle='three_dot' />
             </div>
-            <span className='flex flex-col text-sm items-end text-gray-600'>
-                <p>{post?.created ? TimeFormat(post?.created) : ''}</p>
-                <p>Last updated: {post?.updated ? TimeFormat(post?.updated) : ''}</p>
+            <span className='flex flex-col text-[12px] items-end text-gray-600'>
+                <span>{post?.created ? TimeFormat(post?.created) : ''}</span>
+                <span>Last updated: {post?.updated ? TimeFormat(post?.updated) : ''}</span>
             </span>
             <strong className="font-bold text-3xl">{post?.title}</strong>
 

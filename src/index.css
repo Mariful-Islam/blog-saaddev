@@ -10,12 +10,7 @@
 
   }
 
-    h1, h2 {
-        font-family: revert;
-        font-size: revert;
-        font-weight: revert;
-    }
-@layer base {
+
 h1,
 h2,
 h3,
@@ -25,6 +20,8 @@ h6 {
   font-size: revert;
   font-weight: revert;
   font-family: revert;
-}}
+}
 
-
+blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+  margin: revert;
+}
