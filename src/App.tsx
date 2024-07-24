@@ -6,25 +6,27 @@ import { Home, PostCreate, Profile, PostView, News, Login, Signup } from './page
 import PostsProvider from './context/postsContext'
 import { ProfileProvider } from './context/ProrfileContext'
 import ScrollToTop from './utils/ScrollToTop'
+import AuthProvider from './context/AuthContext'
 
 function App() {
   return (
     <BrowserRouter>
       <PostsProvider>
         <ProfileProvider>
-          <ScrollToTop />
-          <Routes>
-            <Route element={<RootLayout />} >
-              <Route index element={<Home />} />
-              <Route path="news" element={<News />} />
-              <Route path="create_post" element={<PostCreate />} />
-              <Route path="profile/:name" element={<Profile />} />
-              <Route path="post/:id" element={<PostView />} />
-            </Route>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-          </Routes>
-          {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
+          <AuthProvider>
+            <ScrollToTop />
+            <Routes>
+              <Route element={<RootLayout />} >
+                <Route index element={<Home />} />
+                <Route path="news" element={<News />} />
+                <Route path="create_post" element={<PostCreate />} />
+                <Route path="profile/:name" element={<Profile />} />
+                <Route path="post/:id" element={<PostView />} />
+              </Route>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+            </Routes>
+          </AuthProvider>
         </ProfileProvider>
       </PostsProvider>
     </BrowserRouter>

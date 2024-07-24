@@ -2,15 +2,17 @@ import { createContext, useEffect, useState } from "react";
 import { PostTypes } from "../components/Home/HomeMain";
 import Cookies from "js-cookie";
 import axios from "axios";
+import useApi from "../utils/api";
 
 export interface ProfileTypes {
-    email: string;
-    family_name: string;
-    given_name: string;
-    id: string;
-    name: string;
-    picture: string;
-    verified_email: boolean;
+    email?: string;
+    family_name?: string;
+    given_name?: string;
+    id?: string;
+    name?: string;
+    username?: string;
+    picture?: string;
+    verified_email?: boolean;
 }
 
 interface ProfileContextTypes {
@@ -22,19 +24,20 @@ const ProfileContext = createContext<ProfileContextTypes | null>(null)
 export default ProfileContext
 
 
-export const ProfileProvider = ({ children }: any) => {
+export const ProfileProvider = ({ children, username }: any) => {
+    const api = useApi()
     const [profile, setProfile] = useState<ProfileTypes>()
+    const google_token = Cookies.get("google_token")
     const access_token = Cookies.get("access_token")
-
-
     useEffect(() => {
         getProfile()
-    }, [access_token])
+    }, [profile])
+
     const getProfile = () => {
-        if (access_token) {
-            axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+        if (google_token) {
+            axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${google_token}`, {
                 headers: {
-                    Authorization: `Bearer ${access_token}`,
+                    Authorization: `Bearer ${google_token}`,
                     Accept: 'application/json'
                 }
             })
@@ -43,6 +46,10 @@ export const ProfileProvider = ({ children }: any) => {
                     Cookies.set("name", res.data.name)
                 })
                 .catch((err) => console.log(err));
+        } else if (access_token) {
+            const formData = new FormData()
+            formData.append('username', username ?? '')
+            api.getUser(formData).then((response) => setProfile(response.data)).catch((error) => console.log(error))
         }
     }
     const profileData: any = {

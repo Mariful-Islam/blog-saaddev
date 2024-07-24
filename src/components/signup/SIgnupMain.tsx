@@ -1,13 +1,13 @@
-import Illustration from "./Illustration"
-import LoginForm from "./LoginForm"
+import Illustration from "../login/Illustration"
+import SignupForm from "./SignupForm"
 
-const LoginMain = () => {
+const SIgnupMain = () => {
     return (
         <div className="flex flex-col-reverse md:flex md:flex-row md:justify-center md:items-center">
             <Illustration />
-            <LoginForm />
+            <SignupForm />
         </div>
     )
 }
 
-export default LoginMain
+export default SIgnupMain

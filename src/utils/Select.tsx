@@ -22,8 +22,8 @@ const Select: React.FC<TagInputProps> = ({ tags, setTags }) => {
     };
 
     return (
-        <div className='flex gap-2 border border-gray-400 px-2 py-[2px] rounded-md active:border-blue-600'>
-            <div className="flex flex-wrap items-center gap-2 ">
+        <div className='w-full flex gap-2 border border-gray-400 px-2 py-[2px] rounded-md active:border-blue-600'>
+            <div className="flex flex-wrap items-center gap-2 w-full">
                 {tags.map((tag, index) => (
                     <div key={index} className="bg-blue-100 flex justify-between items-center gap-4 pl-2 py-[1px] text-sm rounded-md text-blue-600">
                         {tag}

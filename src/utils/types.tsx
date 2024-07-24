@@ -6,7 +6,7 @@ export interface ButtonTypes {
     color: string;
     variant: string;
     children: ReactNode;
-    onClick?: () => void;
+    onClick?: (params: any) => void;
 }
 
 export interface CarouselProps {
@@ -19,5 +19,5 @@ export interface MenuItemProps {
     type: 'link' | 'button';
     label: string;
     href?: string;
-    onClick?: () => void;
+    onClick?: (params?: any) => void;
 }

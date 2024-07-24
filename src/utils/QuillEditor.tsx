@@ -33,14 +33,14 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder,
     // }, []);
 
     return (
-        <div className="">
+        <div className="w-full">
             <ReactQuill
                 ref={quillRef}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
                 theme="snow"
-                className={`h-64 rounded-md shadow-sm ${className}`}
+                className={`h-64 rounded-md shadow-sm ${className} w-full`}
                 modules={modules}
             />
         </div>

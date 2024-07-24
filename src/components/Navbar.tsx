@@ -1,11 +1,12 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { CustomModal, DropdownMenu } from "../utils"
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { Cross, Search } from "../Icons"
 import { MenuItemProps } from "../utils/types"
 import { PostsContext } from "../context/postsContext"
 import { PostTypes } from "./Home/HomeMain"
 import Cookies from "js-cookie"
+import { AuthContext } from "../context/AuthContext"
 
 
 const menuItems: MenuItemProps[] = [
@@ -20,11 +21,9 @@ const menuItems: MenuItemProps[] = [
 const Navbar = () => {
   const navigate = useNavigate()
   const [isModalOpen, setModalOpen] = useState<any>({ search: false, subscribe: false })
-  const [name, setName] = useState<string>("")
+  const name = Cookies.get("username")
+  const authContext = useContext(AuthContext)
 
-  useEffect(() => {
-    setName(Cookies?.get("name") ?? '')
-  }, [])
   const handleOpenModal = (type: any) => {
     type === "subscribe" ?
       setModalOpen({ ...isModalOpen, subscribe: true }) :
@@ -49,17 +48,34 @@ const Navbar = () => {
     handleCloseModal()
   }
 
+  const onLogout = (e: any) => {
+    e.preventDefault()
+    Cookies.remove("access_token")
+    Cookies.remove("google_token")
+    Cookies.remove("username")
+    authContext.getAuth()
+    navigate("/")
+  }
+
   return (
     <div className="pt-4 px-4 md:px-[10%] bg-blue-600">
       <div className="flex justify-between items-center pb-4">
         <Link to="/" className="text-lg sm:text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
         <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
-          <NavLink to="/news">News</NavLink>
-          <NavLink to={`/profile/${name}`}>Profile</NavLink>
-          <NavLink to="/create_post">Write</NavLink>
-          <NavLink to="/login">Login</NavLink>
-
-          <NavLink to="/logout">Logout</NavLink>
+          {authContext.authenticated ?
+            <>
+              <NavLink to="/news">News</NavLink>
+              <NavLink to={`/profile/${name}`}>Profile</NavLink>
+              <NavLink to="/create_post">Write</NavLink>
+              <button onClick={onLogout}>Logout</button>
+            </>
+            :
+            <>
+              <NavLink to="/news">News</NavLink>
+              <NavLink to="/create_post">Write</NavLink>
+              <NavLink to="/login">Login</NavLink>
+            </>
+          }
         </div>
         <div className="flex gap-8 items-center">
           <Search onClick={() => handleOpenModal("search")} stroke="white" />
@@ -69,7 +85,6 @@ const Navbar = () => {
       </div>
       <CustomModal isOpen={isModalOpen.search} onClose={handleCloseModal} widthClass="w-full sm:w-[350px] sm:max-w-[350px]" className="pt-[70px]">
         <div className="bg-white rounded-md px-8 py-2 flex items-center gap-6">
-
           <input
             type="text"
             placeholder="Search.."
@@ -77,7 +92,6 @@ const Navbar = () => {
             value={search}
             onChange={handleSearch}
           />
-          {/* <span className="text-md text-red-500 hover:underline cursor-pointer">clear</span> */}
           <Cross className="cursor-pointer" onClick={() => setSearch("")} />
           <Search className="" />
         </div>
@@ -86,7 +100,6 @@ const Navbar = () => {
             {searchResults.map((post, i) => (
               <span key={i} onClick={(e) => searchNavigate(e, post.id)} className="py-2 px-6 cursor-pointer border-b hover:bg-blue-100 hover:text-blue-600">{post.title}</span>
             ))}
-
           </div>
         </div>
       </CustomModal>
@@ -102,7 +115,6 @@ const Navbar = () => {
           </div>
         </div>
       </CustomModal>
-
     </div>
   )
 }

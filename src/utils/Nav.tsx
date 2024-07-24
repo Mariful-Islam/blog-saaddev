@@ -4,7 +4,7 @@ import { MenuItemProps } from './types'
 
 
 interface DropdownMenuProps {
-    buttonText: string;
+    buttonText?: string;
     menuItems: MenuItemProps[];
     className?: string;
     menuStyle?: string;

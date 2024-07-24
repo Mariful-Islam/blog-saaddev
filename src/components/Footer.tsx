@@ -3,7 +3,7 @@ import Redirect from "../assets/icons/Redirect.png"
 
 const Footer = () => {
     return (
-        <div className="h-[400px] px-4 md:px-[10%] py-10 mt-[100px] border-t flex flex-col md:flex md:flex-row gap-12">
+        <div className="h-[600px] md:h-[400px] px-4 md:px-[10%] py-10 mt-[100px] border-t flex flex-col md:flex md:flex-row gap-12">
             <div className="flex flex-col gap-6 justify-center items-center md:items-start">
                 <strong className="text-4xl">Mariful Islam</strong>
                 <div>

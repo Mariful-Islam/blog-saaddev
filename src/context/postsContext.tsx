@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 import useApi from "../utils/api";
 import { PostTypes } from "../components/Home/HomeMain";
 
@@ -13,10 +13,6 @@ export const PostsContext = createContext<PostsContextType | null>(null);
 const PostsProvider = ({ children }: { children: ReactNode }) => {
     const api = useApi();
     const [posts, setPosts] = useState<PostTypes[]>([]);
-
-    useEffect(() => {
-        getPosts();
-    }, []);
 
     const getPosts = async () => {
         try {

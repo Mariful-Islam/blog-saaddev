@@ -16,12 +16,18 @@ const Profile = () => {
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
     const [userComments, setUserComments] = useState<CommentTypes[]>([])
     const profileContext = useContext(ProfileContext)
+    const [user, setUser] = useState<any>()
 
     useEffect(() => {
         getUserPosts()
         getUserComments()
         profileContext?.getProfile()
+        getUser()
     }, [])
+    const getUser = () => {
+        api.getUser(name).then((response) => setUser(response.data)).catch((error) => console.log(error))
+    }
+    console.log(user)
     const getUserPosts = async () => {
         try {
             const response = await api.userPosts(name ? name : "")
@@ -48,51 +54,49 @@ const Profile = () => {
     console.log(profileContext?.profile)
     return (
         <div className="px-4 md:px-[10%] flex flex-col gap-8">
-            {profileContext ?
-                <div className="h-[400px] relative border border-blue-600">
-                    <div className="bg-blue-600 h-[150px]"></div>
-                    <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] border border-blue-600 group">
-                        <label htmlFor="profile_image">
-                            {profileContext ? (
+            <div className="h-[400px] relative border border-blue-600">
+                {user ?
+                    <>
+                        <div className="bg-blue-600 h-[150px]"></div>
+                        <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] border border-blue-600 group">
+                            <label htmlFor="profile_image">
+
                                 <img
-                                    src={profileContext?.profile?.picture}
+                                    src={user?.picture}
                                     alt="Profile"
                                     className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
                                 />
-                            ) : (
-                                <img
-                                    src="https://picsum.photos/id/1/200/300"
-                                    alt="Placeholder"
-                                    className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
-                                />
-                            )}
-                        </label>
-                        <input
-                            id="profile_image"
-                            type="file"
-                            className="hidden"
-                            onChange={onChangeImage}
-                        />
-                    </div>
-                    <div className="pt-16 flex justify-center">
-                        <strong className="text-2xl">{profileContext?.profile?.name}</strong>
-                    </div>
-                    <div className="pt-6 flex flex-col gap-6">
-                        <div className="flex justify-center items-center gap-4">
-                            {/* <span className="flex items-center gap-2"><Location className="h-6 w-6" /> Rajshahi, Bangladesh </span>  */}
-                            <span className="flex items-center gap-2"><img src={mail} alt="" /> {profileContext?.profile?.email}</span>
-                        </div>
 
-                        <div className="flex justify-center items-center gap-6">
-                            <Link to="#"><Linkedin className="h-6 w-6" /></Link>
-                            <Link to="#"><Github className="h-6 w-6" /></Link>
-                            <Link to="#"><Twitter className="h-6 w-6" /></Link>
+                            </label>
+                            <input
+                                id="profile_image"
+                                type="file"
+                                className="hidden"
+                                onChange={onChangeImage}
+                            />
                         </div>
-                    </div>
-                </div>
-                :
-                <></>
-            }
+                        <div className="pt-16 flex justify-center">
+                            <strong className="text-2xl">{user?.name}</strong>
+                            {user?.username}
+                        </div>
+                        <div className="pt-6 flex flex-col gap-6">
+                            <div className="flex justify-center items-center gap-4">
+                                {/* <span className="flex items-center gap-2"><Location className="h-6 w-6" /> Rajshahi, Bangladesh </span>  */}
+                                <span className="flex items-center gap-2"><img src={mail} alt="" /> {user?.email}</span>
+                            </div>
+
+                            <div className="flex justify-center items-center gap-6">
+                                <Link to="#"><Linkedin className="h-6 w-6" /></Link>
+                                <Link to="#"><Github className="h-6 w-6" /></Link>
+                                <Link to="#"><Twitter className="h-6 w-6" /></Link>
+                            </div>
+                        </div>
+                    </>
+                    :
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-blue-600 font-semibold">No profile</div>
+                }
+            </div>
+
             <div className="flex flex-wrap gap-6">
                 <div className="p-4 flex flex-col gap-3 border border-blue-600 shadow-lg rounded-md w-full">
                     <strong className="text-xl border-b">Bio</strong>

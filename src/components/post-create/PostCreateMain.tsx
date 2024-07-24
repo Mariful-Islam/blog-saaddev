@@ -12,7 +12,7 @@ const PostCreateMain = () => {
     const api = useApi()
     const { getPosts }: any = useContext(PostsContext)
     const navigate = useNavigate()
-    const name = Cookies.get("name")
+    const name = Cookies.get("name") || Cookies.get("username")
 
     const createPost = async (e: any) => {
         e.preventDefault()

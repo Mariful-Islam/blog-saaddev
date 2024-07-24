@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Carousel, ExtractText, TimeFormat } from "../../utils";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PostsContext } from "../../context/postsContext";
 
 export interface PostTypes {
@@ -30,7 +30,11 @@ const items1 = [
 ];
 
 const HomeMain = () => {
-    const { posts }: any = useContext(PostsContext)
+    const { posts, getPosts }: any = useContext(PostsContext)
+    useEffect(() => {
+        getPosts()
+    }, [])
+
     return (
         <div className="">
             <div className="bg-blue-600">
@@ -52,7 +56,8 @@ const HomeMain = () => {
                             ))}
                         </div>
                         <div className="flex justify-between items-center">
-                            <Link to={`/profile/${post.user}`} className="text-blue-600 cursor-pointer hover:underline">{post.user}</Link> <span className="text-sm">{TimeFormat(post.updated)}</span>
+                            <Link to={`/profile/${post.user}`} className="text-blue-600 cursor-pointer hover:underline">{post.user}</Link>
+                            <span className="text-[12px] text-gray-400">{TimeFormat(post.updated)}</span>
                         </div>
                     </div>
                 ))}

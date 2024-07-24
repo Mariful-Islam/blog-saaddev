@@ -1,7 +1,7 @@
+import SIgnupMain from "../components/signup/SIgnupMain"
+
 const Signup = () => {
-    return (
-        <div>Signup</div>
-    )
+    return <SIgnupMain />
 }
 
 export default Signup
