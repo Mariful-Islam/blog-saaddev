@@ -56,7 +56,7 @@ const PostViewMain = () => {
         }).catch((error) => console.log(error))
     }
     return (
-        <div className="px-[12%] py-10 flex flex-col gap-4">
+        <div className="px-6 md:px-[12%] py-10 flex flex-col gap-4">
             <div className="flex justify-between">
                 <Link to={`/profile/${post?.user}`} className='text-blue-600 font-semibold hover:underline'>{post?.user}</Link>
                 <div className='flex gap-4 relative'>
@@ -79,7 +79,7 @@ const PostViewMain = () => {
                         ))}
                     </div>
                 </> :
-                <div className='flex flex-col items-end'>
+                <div className='flex flex-col gap-4 items-end'>
                     <input
                         type="text"
                         name="title"
@@ -88,7 +88,9 @@ const PostViewMain = () => {
                         onChange={(e: any) => setPost((prev: any) => ({ ...prev, title: e.target.value }))}
                         className="border-gray-300 w-full rounded-md mb-4" required
                     />
-                    <QuillEditor value={post.content ?? ''} onChange={(content) => setPost((prev) => ({ ...prev, content: content }))} className="rounded-md w-full" /><br /><br /><br />
+                    <div className='h-full w-full'>
+                        <QuillEditor value={post.content ?? ''} onChange={(content) => setPost((prev) => ({ ...prev, content: content }))} className="rounded-md w-full" />
+                    </div>
                     <Select tags={post?.tag_list ?? []} setTags={(e: any) => {
                         console.log(e)
                         setPost((prev: any) => ({ ...prev, tag_list: e }))

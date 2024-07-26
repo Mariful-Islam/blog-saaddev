@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import React from 'react'
 import { MenuItemProps } from './types'
+import { Link } from 'react-router-dom';
 
 
 interface DropdownMenuProps {
@@ -40,12 +41,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ buttonText, menuItems, clas
                     {menuItems.map((item, index) => (
                         item.type === 'link' ? (
                             <MenuItem key={index}>
-                                <a
-                                    href={item.href}
-                                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                                <Link to={`${item.href}`} className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
                                 >
                                     {item.label}
-                                </a>
+                                </Link>
                             </MenuItem>
                         ) : (
                             <MenuItem key={index}>

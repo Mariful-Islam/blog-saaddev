@@ -24,14 +24,6 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder,
         ],
     };
 
-    // useEffect(() => {
-    //     if (quillRef.current) {
-    //         const quill = quillRef.current.getEditor();
-    //         console.log(quill)
-    //         // Access the Quill instance if needed
-    //     }
-    // }, []);
-
     return (
         <div className="w-full">
             <ReactQuill
@@ -40,7 +32,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange, placeholder,
                 onChange={onChange}
                 placeholder={placeholder}
                 theme="snow"
-                className={`h-64 rounded-md shadow-sm ${className} w-full`}
+                className={`rounded-md shadow-sm ${className}`}
                 modules={modules}
             />
         </div>

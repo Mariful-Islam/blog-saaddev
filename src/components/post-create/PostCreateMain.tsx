@@ -52,9 +52,8 @@ const PostCreateMain = () => {
                             <></>
                         }
                         <input type="text" name="title" placeholder="Title" className="border-gray-300 w-full rounded-md mb-4" required />
-                        <QuillEditor value={content} onChange={setContent} className="rounded-md" /><br /><br /><br />
-
-                        <Select tags={tags} setTags={setTags} /><br />
+                        <QuillEditor value={content} onChange={setContent} className="rounded-md mb-4" />
+                        <Select tags={tags} setTags={setTags}/><br />
                         <button type="submit" className="px-6 py-2 bg-blue-600 hover:bg text-white text-md rounded-md float-right hover:bg-blue-700">Post</button>
                     </> :
                     <div>

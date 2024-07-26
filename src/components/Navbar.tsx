@@ -10,8 +10,6 @@ import { AuthContext } from "../context/AuthContext"
 
 
 const menuItems: MenuItemProps[] = [
-  { type: 'link', label: 'Blog', href: '/blog' },
-  { type: 'link', label: 'News', href: '/news' },
   { type: 'link', label: 'Profile', href: `/profile/${Cookies.get("name")}` },
   { type: 'link', label: 'Login', href: '/login' },
   { type: 'link', label: 'Write', href: '/create_post' },
