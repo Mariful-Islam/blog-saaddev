@@ -58,7 +58,7 @@ const Navbar = () => {
   return (
     <div className="pt-4 px-4 md:px-[10%] bg-blue-600">
       <div className="flex justify-between items-center pb-4">
-        <Link to="/" className="text-lg sm:text-[24px] font-semibold bg-white text-blue-700 px-10 pt-1 pb-2 flex justify-center items-center rounded-md">Blog</Link>
+        <Link to="/" className="text-lg sm:text-[10px] font-semibold bg-white text-blue-700 px-10 py-0  flex justify-center items-center rounded-md"><h1>Mariful</h1></Link>
         <div className="hidden mh:flex mh:items-center mh:gap-6 font-semibold text-white">
           {authContext.authenticated ?
             <>
@@ -76,7 +76,7 @@ const Navbar = () => {
           }
         </div>
         <div className="flex gap-8 items-center">
-          <Search onClick={() => handleOpenModal("search")} stroke="white" />
+          <Search onClick={() => handleOpenModal("search")} stroke="white" className="cursor-pointer" />
           <button onClick={() => handleOpenModal("subscribe")} className="px-6 py-2 text-blue-600 bg-white rounded-md font-semibold hidden sm:block">Subscribe</button>
           <DropdownMenu buttonText="" menuItems={menuItems} className="mh:hidden" />
         </div>

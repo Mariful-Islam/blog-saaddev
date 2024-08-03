@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Carousel, ExtractText, TimeFormat } from "../../utils";
 import { useContext, useEffect } from "react";
 import { PostsContext } from "../../context/postsContext";
+import Category from "./Category";
 
 export interface PostTypes {
     id: number;
@@ -40,12 +41,15 @@ const HomeMain = () => {
             <div className="bg-blue-600">
                 <Carousel items={items1} className="h-1/2" />
             </div>
+            <>
+                <Category />
+            </>
 
             <div className="pt-12 px-4 md:px-[10%]">
                 <strong>Total: {posts.length}</strong>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-8 px-4 md:px-[10%]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 py-8 px-4 md:px-[10%]">
                 {posts?.map((post: any, index: number) => (
                     <div key={index} className="border border-blue-600 p-6 rounded-md flex flex-col gap-4 shadow-lg">
                         <Link to={`/post/${post.id}/`} className="text-xl font-semibold hover:text-blue-600 cursor-pointer">{post.title}</Link>
