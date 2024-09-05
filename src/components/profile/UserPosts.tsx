@@ -27,7 +27,7 @@ const UserPosts = ({ name }: { name: string }) => {
                             <div className="border-b-2 pb-3 flex flex-col gap-4" key={i}>
                                 <Link to={`/post/${post.id}/`} className="text-xl font-semibold hover:text-blue-600">{post.title}</Link>
                                 <p>
-                                    {ExtractText(post.content).slice(0, 200)}
+                                    {ExtractText(post?.description).slice(0, 200)}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                     {post?.tag?.split(",")?.map((tag, i) => (

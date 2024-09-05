@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PostTypes } from "../components/Home/HomeMain";
 
 interface TagInputProps {
-  formData: PostTypes;
+  formData?: any;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -20,7 +20,7 @@ const Select: React.FC<TagInputProps> = ({ formData, setFormData }) => {
 
   const handleRemoveTag = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
-    setFormData((prev:PostTypes)=>({...prev, tag: formData?.tag?.split(",").filter((_, i) => i !== index).toString()}));
+    setFormData((prev:PostTypes)=>({...prev, tag: formData?.tag?.split(",").filter((_:any, i:number) => i !== index).toString()}));
   };
 
   return (

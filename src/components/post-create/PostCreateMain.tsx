@@ -19,8 +19,8 @@ export interface FormDataType {
 
 const PostCreateMain = () => {
   const authContext = useContext(AuthContext)
-  const username = Cookies.get("username") 
-  const [formData, setFormData] = useState<FormDataType>({ username: username });
+  const username = Cookies.get("username")
+  const [formData, setFormData] = useState<any>({ username: username });
 
   const [response, setResponse] = useState("");
   const api = useApi();

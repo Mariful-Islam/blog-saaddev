@@ -27,7 +27,7 @@ export interface BlogTypes {
 const PostViewMain = () => {
     const { slug }: any = useParams()
     const api = useApi()
-    const [post, setPost] = useState<BlogTypes>({})
+    const [post, setPost] = useState<BlogTypes>()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -36,16 +36,16 @@ const PostViewMain = () => {
     const getPost = () => {
         api.post(slug ? slug : '').then((response) => setPost(response.data)).catch((error) => console.log(error))
     }
-    const sanitizeddescription = DOMPurify.sanitize(post.description ?? '');
+    const sanitizeddescription = DOMPurify.sanitize(post?.description || '');
 
     const [openEdit, setOpenEdit] = useState<boolean>(false)
     const onEdit = () => {
         console.log(slug)
         const formData = new FormData()
-        formData.append('user', post.username ?? '')
-        formData.append('title', post.title ?? '')
-        formData.append('description', post.description ?? '')
-        formData.append('tag', post.tag ?? '')
+        formData.append('user', post?.username || '')
+        formData.append('title', post?.title || '')
+        formData.append('description', post?.description || '')
+        formData.append('tag', post?.tag || '')
         api.editPost(slug, formData).then((response) => {
             console.log(response.data)
             getPost()
@@ -63,8 +63,8 @@ const PostViewMain = () => {
     return (
         <>
         <Helmet>
-            <title>{post.title}</title>
-            <meta title="description" description="A blog for programming lover" />
+            <title>{post?.title}</title>
+            <meta title="description" content="A blog for programming lover" />
             <link rel="canonical" href="/" />
         </Helmet>
         <div className="px-6 md:px-[12%] py-10 flex flex-col gap-4">
@@ -95,12 +95,12 @@ const PostViewMain = () => {
                         type="text"
                         name="title"
                         placeholder="Title"
-                        value={post.title}
+                        value={post?.title}
                         onChange={(e: any) => setPost((prev: any) => ({ ...prev, title: e.target.value }))}
                         className="border-gray-300 w-full rounded-md mb-4" required
                     />
                     <div className='h-full w-full'>
-                        <QuillEditor value={post.description ?? ''} onChange={(description) => setPost((prev) => ({ ...prev, description: description }))} className="rounded-md w-full" />
+                        <QuillEditor value={post?.description ? post?.description: ""} onChange={(description) => setPost((prev:any) => ({ ...prev, description: description }))} className="rounded-md w-full" />
                     </div>
                     <Select formData={post} setFormData={setPost} /><br />
                     <div className='flex gap-4 items-center justify-center'>

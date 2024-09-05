@@ -10,7 +10,6 @@ export interface PostTypes {
     title: string;
     description: string;
     tag: string;
-    tag_list: string[],
     updated: string;
     created: string;
 }
