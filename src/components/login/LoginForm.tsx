@@ -31,17 +31,20 @@ const LoginForm = () => {
     const onLogin = (e: any) => {
         e.preventDefault()
         const data = new FormData()
-        data.append('username', e.target.email.value.split('@')[0])
+        data.append('email', e.target.email.value)
         data.append('password', e.target.password.value)
 
         api.login(data).then((response) => {
             if (response) {
                 Cookies.set('access_token', response.data.token)
                 Cookies.set('username', response.data.username)
+                Cookies.set('email', response.data.email)
+                Cookies.set('userId', response.data.userId)
                 authContext.setToken(response.data.token)
-                if (authContext.authenticated) {
-                    navigate('/')
-                }
+                // if (authContext.authenticated) {
+                //     navigate('/')
+                // }
+                navigate('/')
             }
             console.log(response)
         }).catch((error) => console.log(error))
@@ -65,9 +68,9 @@ const LoginForm = () => {
             <div className="flex flex-col gap-5 items-center">
                 <p className="text-sm text-gray-500">Or sign in with</p>
                 <div className="flex gap-4">
-                    <span onClick={() => onGoogleLogin()} className="cursor-pointer"><img src={google} alt="" style={{ height: 30, width: 30 }} /></span>
-                    <span className="cursor-pointer"><img src={fb} alt="" style={{ height: 30, width: 30 }} /></span>
-                    <span className="cursor-pointer"><img src={linkedin} alt="" style={{ height: 30, width: 30 }} /></span>
+                    <span onClick={() => onGoogleLogin()} className="cursor-pointer"><img src={google} alt="google-icon" style={{ height: 30, width: 30 }} /></span>
+                    <span className="cursor-pointer"><img src={fb} alt="fb-icon" style={{ height: 30, width: 30 }} /></span>
+                    <span className="cursor-pointer"><img src={linkedin} alt="linkedin-icon" style={{ height: 30, width: 30 }} /></span>
                 </div>
             </div>
         </div>

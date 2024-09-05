@@ -5,22 +5,27 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import useApi from '../../utils/api';
 import Comment from './Comment';
 import { QuillEditor, Select } from '../../utils';
+import { Helmet } from 'react-helmet-async';
 
 
-interface BlogTypes {
-    id?: number;
-    user?: string;
-    title?: string;
-    content?: string;
-    tag?: string;
-    tag_list?: string[];
-    updated?: string;
-    created?: string;
+export interface BlogTypes {
+    id: number;
+    user: string;
+    username: string;
+    title: string;
+    description: string;
+    created: string;
+    updated: string;
+    tag: string;
+    views: string;
+    meta_title: string;
+    meta_description: string;
+    slug: string;
 }
 
 
 const PostViewMain = () => {
-    const { id }: any = useParams()
+    const { slug }: any = useParams()
     const api = useApi()
     const [post, setPost] = useState<BlogTypes>({})
     const navigate = useNavigate()
@@ -29,19 +34,19 @@ const PostViewMain = () => {
         getPost()
     }, [])
     const getPost = () => {
-        api.post(id ? id : '').then((response) => setPost(response.data)).catch((error) => console.log(error))
+        api.post(slug ? slug : '').then((response) => setPost(response.data)).catch((error) => console.log(error))
     }
-    const sanitizedContent = DOMPurify.sanitize(post.content ?? '');
+    const sanitizeddescription = DOMPurify.sanitize(post.description ?? '');
 
     const [openEdit, setOpenEdit] = useState<boolean>(false)
     const onEdit = () => {
-        console.log(id)
+        console.log(slug)
         const formData = new FormData()
-        formData.append('user', post.user ?? '')
+        formData.append('user', post.username ?? '')
         formData.append('title', post.title ?? '')
-        formData.append('content', post.content ?? '')
+        formData.append('description', post.description ?? '')
         formData.append('tag', post.tag ?? '')
-        api.editPost(id, formData).then((response) => {
+        api.editPost(slug, formData).then((response) => {
             console.log(response.data)
             getPost()
             setOpenEdit(false)
@@ -50,15 +55,21 @@ const PostViewMain = () => {
     }
 
     const onDelete = () => {
-        api.deletePost(id).then((response) => {
+        api.deletePost(slug).then((response) => {
             console.log(response.data)
             navigate('/')
         }).catch((error) => console.log(error))
     }
     return (
+        <>
+        <Helmet>
+            <title>{post.title}</title>
+            <meta title="description" description="A blog for programming lover" />
+            <link rel="canonical" href="/" />
+        </Helmet>
         <div className="px-6 md:px-[12%] py-10 flex flex-col gap-4">
             <div className="flex justify-between">
-                <Link to={`/profile/${post?.user}`} className='text-blue-600 font-semibold hover:underline'>{post?.user}</Link>
+                <Link to={`/profile/${post?.username}`} className='text-blue-600 font-semibold hover:underline'>{post?.username}</Link>
                 <div className='flex gap-4 relative'>
                     <button onClick={() => setOpenEdit(!openEdit)} className="text-blue-600 cursor-pointer hover:underline text-sm">Edit</button>
                     <button onClick={onDelete} className="text-red-600 cursor-pointer hover:underline text-sm">Delete</button>
@@ -72,9 +83,9 @@ const PostViewMain = () => {
             {!openEdit ?
                 <>
                     <strong className="font-bold text-3xl">{post?.title}</strong>
-                    <div className='text-justify' dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+                    <div className='text-justify' dangerouslySetInnerHTML={{ __html: sanitizeddescription }} />
                     <div className="flex flex-wrap gap-2">
-                        {post?.tag_list?.map((tag, i) => (
+                        {post?.tag?.split(",")?.map((tag, i) => (
                             <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
                         ))}
                     </div>
@@ -89,21 +100,18 @@ const PostViewMain = () => {
                         className="border-gray-300 w-full rounded-md mb-4" required
                     />
                     <div className='h-full w-full'>
-                        <QuillEditor value={post.content ?? ''} onChange={(content) => setPost((prev) => ({ ...prev, content: content }))} className="rounded-md w-full" />
+                        <QuillEditor value={post.description ?? ''} onChange={(description) => setPost((prev) => ({ ...prev, description: description }))} className="rounded-md w-full" />
                     </div>
-                    <Select tags={post?.tag_list ?? []} setTags={(e: any) => {
-                        console.log(e)
-                        setPost((prev: any) => ({ ...prev, tag_list: e }))
-                        setPost((prev: any) => ({ ...prev, tag: "".concat(e.toString()) }))
-                    }} /><br />
+                    <Select formData={post} setFormData={setPost} /><br />
                     <div className='flex gap-4 items-center justify-center'>
                         <button onClick={() => setOpenEdit(false)} className="px-6 py-2 bg-red-100 text-red-600 text-md rounded-md float-right hover:bg-red-200 mr-3" value="Cancel">Cancel</button>
                         <button onClick={onEdit} className="px-6 py-2 bg-blue-600 hover:bg text-white text-md rounded-md float-right hover:bg-blue-700">Update</button>
                     </div>
                 </div>
             }
-            <Comment id={id} />
+            <Comment slug={slug} />
         </div >
+        </>
     )
 }
 

@@ -12,6 +12,7 @@ import mail from "../assets/icons/mail.svg"
 const Profile = () => {
     // const [profileImage, setProfileImage] = useState<File | Blob>();
     const { name } = useParams()
+    console.log(name, "=====")
     const api = useApi()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
     const [userComments, setUserComments] = useState<CommentTypes[]>([])
@@ -63,7 +64,7 @@ const Profile = () => {
 
                                 <img
                                     src={user?.picture}
-                                    alt="Profile"
+                                    alt={user.username}
                                     className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
                                 />
 
@@ -82,7 +83,7 @@ const Profile = () => {
                         <div className="pt-6 flex flex-col gap-6">
                             <div className="flex justify-center items-center gap-4">
                                 {/* <span className="flex items-center gap-2"><Location className="h-6 w-6" /> Rajshahi, Bangladesh </span>  */}
-                                <span className="flex items-center gap-2"><img src={mail} alt="" /> {user?.email}</span>
+                                <span className="flex items-center gap-2"><img src={mail} alt="email" /> {user?.email}</span>
                             </div>
 
                             <div className="flex justify-center items-center gap-6">

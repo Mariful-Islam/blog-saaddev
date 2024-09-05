@@ -21,7 +21,7 @@ function App() {
                 <Route path="news" element={<News />} />
                 <Route path="create_post" element={<PostCreate />} />
                 <Route path="profile/:name" element={<Profile />} />
-                <Route path="post/:id" element={<PostView />} />
+                <Route path="post/:slug" element={<PostView />} />
               </Route>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />

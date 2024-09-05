@@ -2,7 +2,7 @@ import { createContext, useState, ReactNode } from "react";
 import useApi from "../utils/api";
 import { PostTypes } from "../components/Home/HomeMain";
 
-interface PostsContextType {
+export interface PostsContextType {
     getPosts: () => void;
     posts: PostTypes[];
     setPosts: React.Dispatch<React.SetStateAction<PostTypes[]>>;
