@@ -30,7 +30,7 @@ const UserPosts = ({ name }: { name: string }) => {
                                     {ExtractText(post.content).slice(0, 200)}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
-                                    {post.tag_list.map((tag, i) => (
+                                    {post?.tag?.split(",")?.map((tag, i) => (
                                         <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
                                     ))}
                                 </div>

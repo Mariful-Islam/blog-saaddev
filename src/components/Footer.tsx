@@ -9,7 +9,7 @@ const Footer = () => {
                 <div>
                     <p>Software engineer at Bytenyx Limited</p>
                     <p>mariful@heliosinsider.com</p>
-                    <Link to="https://saaddev-io.vercel.app/" target="__blank" className="flex items-center gap-1 hover:text-blue-600 hover:underline">website <img src={Redirect} style={{ height: 15, width: 15, fill: 'blue' }} alt="" /></Link>
+                    <Link to="https://saaddev-io.vercel.app/" target="__blank" className="flex items-center gap-1 hover:text-blue-600 hover:underline">website <img src={Redirect} style={{ height: 15, width: 15, fill: 'blue' }} alt="redirect" /></Link>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-12">
