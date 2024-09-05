@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { FormDataType } from "./PostCreateMain";
+import React from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
 
-interface SEODataType {
-  meta_title: string;
-  meta_description: string;
-  slug: string;
-}
+// interface SEODataType {
+//   meta_title: string;
+//   meta_description: string;
+//   slug: string;
+// }
 
 interface SEOType {
   formData: any;
@@ -15,7 +13,6 @@ interface SEOType {
 }
 
 function SEO({ formData, onChange }: SEOType) {
-  const { pathname } = useLocation();
   return (
     <>
       <Helmet>
