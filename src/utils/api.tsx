@@ -8,8 +8,9 @@ const useApi = () => {
         posts: () => interceptor.get(`/blog/posts/`),
         createPost: (data:any) => interceptor.post(`/blog/posts/`, data),
         post: (id: string) => interceptor.get(`/blog/post/${id}/`),
-        editPost: (id: string, data: any) => interceptor.put(`/blog/post/${id}/`, data),
-        deletePost: (id: number) => interceptor.delete(`/blog/post/${id}/`),
+        editPost: (slug: string, data: any) => interceptor.put(`/blog/post/${slug}/`, data),
+        deletePost: (slug: string) => interceptor.delete(`/blog/post/${slug}/`),
+        getPost: (slug: string) => interceptor.get(`/blog/post/${slug}/`),
         userPosts: (username: string) => interceptor.get(`/blog/user_post/${username}/`),
         
         // Comment
