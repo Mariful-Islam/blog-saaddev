@@ -8,7 +8,7 @@ const UserPosts = ({ name }: { name: string }) => {
     const api = useApi()
     const navigate = useNavigate()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
-    const [openEdit, setOpenEdit] = useState<boolean>(false)
+    
     useEffect(() => {
         getUserPosts()
     }, [])
