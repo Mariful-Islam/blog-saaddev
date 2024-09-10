@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import useApi from "../../utils/api"
 import { TimeFormat } from "../../utils";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { AuthContext } from "../../context/AuthContext";
 
 export interface CommentTypes {
     id: number;
@@ -19,6 +20,8 @@ const Comment = ({ slug }: { slug?: string | any }) => {
     const [comments, setComments] = useState<CommentTypes[]>([])
     const [open, setOpen] = useState<boolean>(false)
     const username = Cookies.get("username") || ""
+    const { authenticated } = useContext(AuthContext)
+
     useEffect(() => {
         getComments()
     }, [])
@@ -88,7 +91,7 @@ const Comment = ({ slug }: { slug?: string | any }) => {
                             </div>
                             <div>
 
-                                {open ? (
+                                {open && authenticated && username === comment.username ? (
                                     <form onSubmit={(e) => handleEdit(e, comment.id)}>
                                         <input type="text" name="edit_comment" className="border-gray-300 my-2 rounded-md" defaultValue={comment.text} />
 
@@ -98,10 +101,11 @@ const Comment = ({ slug }: { slug?: string | any }) => {
                                     <p className="text-gray-500 pl-2 my-1">{comment.text}</p>
                                 )}
                             </div>
+                            { authenticated && username === comment.username && (
                             <div className="flex gap-2 text-sm text-gray-400">
                                 <span onClick={handleEdit} className="text-blue-600 cursor-pointer hover:underline">Edit</span>
                                 <span onClick={(e) => handleDelete(e, comment.id)} className="text-red-600 cursor-pointer hover:underline">Delete</span>
-                            </div>
+                            </div>)}
                         </div>
                     ))}
                 </div>

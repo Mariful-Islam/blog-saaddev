@@ -1,33 +1,24 @@
-import React, { useContext, useState } from "react";
-import { QuillEditor, Select } from "../../utils";
-import useApi from "../../utils/api";
-import { PostsContext } from "../../context/postsContext";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import SEO from "./SEO";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Cookies from "js-cookie";
+import { PostsContext } from "../../context/postsContext";
+import { useNavigate, useParams } from "react-router-dom";
+import useApi from "../../utils/api";
 import { toast } from "react-toastify";
+import { QuillEditor, Select } from "../../utils";
+import SEO from "../post-create/SEO";
 
-export interface FormDataType {
-  username: string;
-  title: string;
-  description: string;
-  tag: string[];
-  meta_title: string;
-  meta_description: string;
-  slug: string;
-}
-
-const PostCreateMain = () => {
+function EditPostMain() {
+  const navigate = useNavigate();
+  const { slug }:any = useParams()
   const authContext = useContext(AuthContext)
   const username = Cookies.get("username")
-  const [formData, setFormData] = useState<any>({ username: username });
+  const [formData, setFormData] = useState<any>();
   const [error, setError] = useState({})
   const [response, setResponse] = useState("");
   const api = useApi();
   const { getPosts }: any = useContext(PostsContext);
-  const navigate = useNavigate();
-  
+
 
   const onChange = (e: React.ChangeEvent<any>) => {
     const { name, value } = e.target;
@@ -37,12 +28,22 @@ const PostCreateMain = () => {
     }));
   };
 
+  useEffect(()=>{
+    fetchPost()
+  }, [])
+
+  const fetchPost = () => {
+    api.getPost(slug).then((response)=>{
+      setFormData(response.data)
+    }).catch((error)=>toast.error("Error fetch post"))
+  }
+
   const createPost = async (e: any) => {
     e.preventDefault()
     console.log(formData)
     if (!formData.title){
       setError((prev)=>({...prev, title: 'Title is empty'}))
-      toast.warn('Title is empty')
+      toast.error('Title is empty')
     }
     if (!formData.description){
       setError((prev)=>({...prev, description: 'description is empty'}))
@@ -62,7 +63,7 @@ const PostCreateMain = () => {
 
     if (formData) {
       await api
-        .createPost(formData)
+        .editPost(slug, formData)
         .then((response) => {
           console.log(response);
           if (response) {
@@ -79,7 +80,6 @@ const PostCreateMain = () => {
       alert("Form is empty");
     }
   };
-
   return (
     <>
       <div className="px-4 md:px-[10%]">
@@ -89,13 +89,12 @@ const PostCreateMain = () => {
               <div className="border rounded-md shadow-md p-4 mb-4">
                 {!authContext.authenticated ? (
                   <input
-                    type="email"
-                    name="email"
-                    value={formData?.username}
+                    type="text"
+                    name="username"
+                    value={formData?.username || ""}
                     onChange={onChange}
                     placeholder="Email"
-                    className="border-gray-300 w-full rounded-md mb-4"
-                    
+                    className="border-gray-300 w-full rounded-md mb-4 hidden"
                   />
                 ) : (
                   <></>
@@ -103,23 +102,27 @@ const PostCreateMain = () => {
                 <input
                   type="text"
                   name="title"
-                  value={formData?.title}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-                    onChange(e)
-                    const slug = e.target.value.toLowerCase().split(" ").join("-")
-                    setFormData((prev:any)=>({...prev, slug: slug}))
-                    setFormData((prev:any)=>({...prev, meta_title: slug}))
+                  value={formData?.title || ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange(e);
+                    const slug = e.target.value
+                      .toLowerCase()
+                      .split(" ")
+                      .join("-");
+                    setFormData((prev: any) => ({ ...prev, slug: slug }));
+                    setFormData((prev: any) => ({ ...prev, meta_title: slug }));
                   }}
                   placeholder="Title"
                   className="border-gray-300 w-full rounded-md mb-4"
-    
                 />
 
                 <QuillEditor
-                value={formData?.description || ""}
-                onChange={(e)=>setFormData((prev:any)=>({...prev, description: e}))}
-                className="rounded-md mb-4"
-              />
+                  value={formData?.description || ""}
+                  onChange={(e) =>
+                    setFormData((prev: any) => ({ ...prev, description: e }))
+                  }
+                  className="rounded-md mb-4"
+                />
 
                 <Select formData={formData} setFormData={setFormData} />
               </div>
@@ -128,9 +131,9 @@ const PostCreateMain = () => {
 
               <button
                 type="submit"
-                className="px-6 py-2 mt-4 bg-blue-600 hover:bg text-white text-md rounded-md float-right hover:bg-blue-700"
+                className="px-6 py-2 mt-4 bg-blue-600 hover:bg text-white text-md rounded-md float-right hover:bg-blue-700 transition-all duration-150 ease-linear"
               >
-                Post
+                Update
               </button>
             </>
           ) : (
@@ -140,6 +143,6 @@ const PostCreateMain = () => {
       </div>
     </>
   );
-};
+}
 
-export default PostCreateMain;
+export default EditPostMain;

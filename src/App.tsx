@@ -7,6 +7,9 @@ import PostsProvider from './context/postsContext'
 import { ProfileProvider } from './context/ProrfileContext'
 import ScrollToTop from './utils/ScrollToTop'
 import AuthProvider from './context/AuthContext'
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import EditPost from './pages/EditPost'
 
 function App() {
   return (
@@ -22,10 +25,12 @@ function App() {
                 <Route path="create_post" element={<PostCreate />} />
                 <Route path="profile/:name" element={<Profile />} />
                 <Route path="post/:slug" element={<PostView />} />
+                <Route path="post/:slug/edit/" element={<EditPost />} />
               </Route>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
             </Routes>
+            <ToastContainer/>
           </AuthProvider>
         </ProfileProvider>
       </PostsProvider>

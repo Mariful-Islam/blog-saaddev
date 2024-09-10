@@ -40,7 +40,6 @@ function SEO({ formData, onChange }: SEOType) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           value={formData?.meta_title || ""}
           className="border-gray-300 w-full rounded-md mb-4"
-          required
         />
         <input
           type="text"
@@ -49,12 +48,11 @@ function SEO({ formData, onChange }: SEOType) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           value={formData?.meta_description || ""}
           className="border-gray-300 w-full rounded-md mb-4"
-          required
         />
 
         <div className="flex items-center w-full py-2 px-3 border border-gray-300 rounded-md focus-within:border-2 focus-within:border-solid focus-within:border-blue-600">
-          <div className="text-gray-500">
-            https://{window.location.host}/post/
+          <div className="text-gray-500 text-nowrap">
+            {`https://${window.location.host}/post/`}
           </div>
           <input
             id="url"
