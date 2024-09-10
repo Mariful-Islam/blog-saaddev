@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import Cookies from "js-cookie";
 import { PostsContext } from "../../context/postsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import useApi from "../../utils/api";
@@ -12,9 +11,7 @@ function EditPostMain() {
   const navigate = useNavigate();
   const { slug }:any = useParams()
   const authContext = useContext(AuthContext)
-  const username = Cookies.get("username")
-  const [formData, setFormData] = useState<any>();
-  const [error, setError] = useState({})
+  const [formData, setFormData] = useState<any>()
   const [response, setResponse] = useState("");
   const api = useApi();
   const { getPosts }: any = useContext(PostsContext);
@@ -35,30 +32,33 @@ function EditPostMain() {
   const fetchPost = () => {
     api.getPost(slug).then((response)=>{
       setFormData(response.data)
-    }).catch((error)=>toast.error("Error fetch post"))
+    }).catch((error)=>{
+      toast.error("Error fetch post")
+      console.log(error)
+    })
+
   }
 
   const createPost = async (e: any) => {
     e.preventDefault()
-    console.log(formData)
+
     if (!formData.title){
-      setError((prev)=>({...prev, title: 'Title is empty'}))
-      toast.error('Title is empty')
+      toast.warn('Title is empty')
     }
     if (!formData.description){
-      setError((prev)=>({...prev, description: 'description is empty'}))
+      toast.error('description is empty')
     }
     if (!formData.tag){
-      setError((prev)=>({...prev, tag: 'tag is empty'}))
+      toast.error('tag is empty')
     }
     if (!formData.meta_title){
-      setError((prev)=>({...prev, meta_title: 'meta_title is empty'}))
+      toast.error( 'meta_title is empty')
     }
     if (!formData.meta_description){
-      setError((prev)=>({...prev, meta_description: 'meta_description is empty'}))
+      toast.error('meta_description is empty')
     }
     if (!formData.slug){
-      setError((prev)=>({...prev, slug: 'slug is empty'}))
+      toast.error('slug is empty')
     }
 
     if (formData) {

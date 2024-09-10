@@ -20,20 +20,6 @@ const UserPosts = ({ name }: { name: string }) => {
             console.log("Error fetching user posts", error)
         }
     }
-      const onEdit = (e:any, slug:any) => {
-        // console.log(slug)
-        // const formData = new FormData()
-        // formData.append('user', post?.username || '')
-        // formData.append('title', post?.title || '')
-        // formData.append('description', post?.description || '')
-        // formData.append('tag', post?.tag || '')
-        //     api.editPost(slug, formData).then((response) => {
-        //     console.log(response.data)
-        //     getPost()
-        //     setOpenEdit(false)
-        // }).catch((error) => console.log(error))
-
-    }
 
     const onDelete = (e:any, slug:string) => {
         e.preventDefault()

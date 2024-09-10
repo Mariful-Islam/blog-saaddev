@@ -22,7 +22,7 @@ const PostCreateMain = () => {
   const authContext = useContext(AuthContext)
   const username = Cookies.get("username")
   const [formData, setFormData] = useState<any>({ username: username });
-  const [error, setError] = useState({})
+
   const [response, setResponse] = useState("");
   const api = useApi();
   const { getPosts }: any = useContext(PostsContext);
@@ -39,25 +39,23 @@ const PostCreateMain = () => {
 
   const createPost = async (e: any) => {
     e.preventDefault()
-    console.log(formData)
     if (!formData.title){
-      setError((prev)=>({...prev, title: 'Title is empty'}))
       toast.warn('Title is empty')
     }
     if (!formData.description){
-      setError((prev)=>({...prev, description: 'description is empty'}))
+      toast.error('description is empty')
     }
     if (!formData.tag){
-      setError((prev)=>({...prev, tag: 'tag is empty'}))
+      toast.error('tag is empty')
     }
     if (!formData.meta_title){
-      setError((prev)=>({...prev, meta_title: 'meta_title is empty'}))
+      toast.error( 'meta_title is empty')
     }
     if (!formData.meta_description){
-      setError((prev)=>({...prev, meta_description: 'meta_description is empty'}))
+      toast.error('meta_description is empty')
     }
     if (!formData.slug){
-      setError((prev)=>({...prev, slug: 'slug is empty'}))
+      toast.error('slug is empty')
     }
 
     if (formData) {
