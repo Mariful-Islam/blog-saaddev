@@ -6,7 +6,7 @@ interface TagInputProps {
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const Select: React.FC<TagInputProps> = ({ formData, setFormData }) => {
+const Select=({ formData, setFormData }: TagInputProps) => {
   const [value, setValue] = useState("")
   
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

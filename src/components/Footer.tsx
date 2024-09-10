@@ -16,18 +16,18 @@ const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <strong className="text-xl pb-4">Services</strong>
                     <ul className="list-none flex flex-col gap-2">
-                        <li><Link to="https://saaddev-io.vercel.app/service/4" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">GIS development</Link></li>
-                        <li><Link to="https://saaddev-io.vercel.app/service/1" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Web Development</Link></li>
-                        <li><Link to="https://saaddev-io.vercel.app/service/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Custom Software Development</Link></li>
+                        <li><Link to="https://saadinsider.vercel.app/service/4" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">GIS development</Link></li>
+                        <li><Link to="https://saadinsider-io.vercel.app/service/1" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Web Development</Link></li>
+                        <li><Link to="https://saadinsider-io.vercel.app/service/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Custom Software Development</Link></li>
 
                     </ul>
                 </div>
                 <div className="flex flex-col gap-2">
                     <strong className="text-xl pb-4">Projects</strong>
                     <ul className="list-none flex flex-col gap-2">
-                        <li><Link to="https://mms-saaddev.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">MMS</Link></li>
-                        <li><Link to="https://fin-saaddev.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Fin</Link></li>
-                        <li><Link to="https://ecom-saaddev.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Ecom</Link></li>
+                        <li><Link to="https://mms-saadinsider.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">MMS</Link></li>
+                        <li><Link to="https://fin-saadinsider.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Fin</Link></li>
+                        <li><Link to="https://ecom-saadinsider.vercel.app/" target="__blank" className="font-semibold hover:text-blue-600 hover:underline">Ecom</Link></li>
 
                     </ul>
                 </div>

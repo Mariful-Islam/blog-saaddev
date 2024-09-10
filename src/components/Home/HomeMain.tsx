@@ -7,11 +7,15 @@ import Category from "./Category";
 export interface PostTypes {
     id: number;
     user: string;
+    username: string;
     title: string;
     description: string;
     tag: string;
     updated: string;
     created: string;
+    meta_title: string;
+    meta_description: string;
+    slug: string;
 }
 
 const items1 = [
@@ -34,6 +38,7 @@ const HomeMain = () => {
     useEffect(() => {
         getPosts()
     }, [])
+
 
     return (
         <div>
