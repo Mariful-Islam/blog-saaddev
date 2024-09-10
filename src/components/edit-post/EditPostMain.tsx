@@ -11,7 +11,7 @@ function EditPostMain() {
   const navigate = useNavigate();
   const { slug }:any = useParams()
   const authContext = useContext(AuthContext)
-  const [formData, setFormData] = useState<any>();
+  const [formData, setFormData] = useState<any>()
   const [response, setResponse] = useState("");
   const api = useApi();
   const { getPosts }: any = useContext(PostsContext);
@@ -36,11 +36,12 @@ function EditPostMain() {
       toast.error("Error fetch post")
       console.log(error)
     })
+
   }
 
   const createPost = async (e: any) => {
     e.preventDefault()
-    
+
     if (!formData.title){
       toast.warn('Title is empty')
     }
