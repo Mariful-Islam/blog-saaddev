@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [
-    reactRefresh(),
+    react()
   ],
   css: {
     postcss: {
