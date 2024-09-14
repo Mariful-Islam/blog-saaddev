@@ -40,8 +40,8 @@ const PostViewMain = () => {
         <>
         <Helmet>
             <title>{post?.title}</title>
-            <meta title="description" content="A blog for programming lover" />
-            <link rel="canonical" href="/" />
+            <meta name="description" content={post?.meta_description}/>
+            <link rel="canonical" href={`/posts/${post?.slug}`} />
         </Helmet>
         <div className="px-6 md:px-[12%] py-10 flex flex-col gap-4">
             <div className="flex justify-between">
@@ -54,7 +54,7 @@ const PostViewMain = () => {
           
 
                     <strong className="font-bold text-3xl">{post?.title}</strong>
-                    <div className='text-justify' dangerouslySetInnerHTML={{ __html: sanitizeddescription }} />
+                    <div className='text-justify text-wrap flex-wrap' dangerouslySetInnerHTML={{ __html: sanitizeddescription }} />
                     <div className="flex flex-wrap gap-2">
                         {post?.tag?.split(",")?.map((tag, i) => (
                             <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>

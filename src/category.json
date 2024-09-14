@@ -1,3 +1,35 @@
 {
-    "name": 
+    "id": 1,
+    "name": "fashion",
+    "subcategory": [
+        {
+            "id":2,
+            "name": "Mens Fashion",
+            "subcategory": [
+                {
+                    "id":3,
+                    "name": "shoe",
+                    "subcategory": [
+                        {
+                            "id": 4,
+                            "name": "Keds",
+                            "subcategory": []
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "name": "shirt",
+                    "subcategory":[
+
+                    ]
+                },
+                {
+                    "id": 6,
+                    "name": "pant",
+                    "subcategory":[]
+                }
+            ]
+        }
+    ]
 }

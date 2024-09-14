@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Carousel, ExtractText, TimeFormat } from "../../utils";
 import { useContext, useEffect } from "react";
 import { PostsContext } from "../../context/postsContext";
-import Category from "./Category";
+import Category from "./category/Category";
 
 export interface PostTypes {
     id: number;
@@ -56,11 +56,11 @@ const HomeMain = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 py-8 px-4 md:px-[10%]">
                 {posts?.map((post: any, index: number) => (
                     <div key={index} className="border border-blue-600 p-6 rounded-md flex flex-col gap-4 shadow-lg">
-                        <Link to={`/post/${post.slug}/`} className="text-xl font-semibold hover:text-blue-600 cursor-pointer">{post.title}</Link>
-                        <p className="text-justify break-all">{ExtractText(post.description).slice(0, 200)}</p>
+                        <Link to={`/post/${post.slug}/`} className="text-xl font-semibold hover:text-blue-600 hover:underline cursor-pointer text-black no-underline">{post.title}</Link>
+                        <p className="text-justify flex-wrap text-wrap">{ExtractText(post.description).slice(0, 200)}</p>
                         <div className="flex flex-wrap gap-2">
                             {post.tag.split(",").map((tag: any, i: number) => (
-                                <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
+                                <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white no-underline">#{tag}</Link>
                             ))}
                         </div>
                         <div className="flex justify-between items-center">
