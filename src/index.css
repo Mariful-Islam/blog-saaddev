@@ -25,3 +25,16 @@ h6 {
 blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
   margin: revert;
 }
+
+blockquote {
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+
+a {
+  font: revert;
+  text-decoration: revert;
+  color: revert;
+}

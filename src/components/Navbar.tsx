@@ -96,23 +96,23 @@ const Navbar = () => {
         <div className="flex justify-between items-center pb-4">
           <Link
             to="/"
-            className="text-lg sm:text-[10px] font-semibold bg-white text-blue-700 px-10 py-0  flex justify-center items-center rounded-md"
+            className="no-underline hover:bg-gray-300 transition-all duration-150 ease-linear text-lg sm:text-[10px] font-semibold bg-white text-blue-700 px-10 py-0  flex justify-center items-center rounded-md"
           >
-            <strong className="text-xl py-1">SIB</strong>
+            <strong className="text-xl  py-1">SIB</strong>
           </Link>
           <div className="hidden md:bg-transparent md:flex md:flex-row md:items-center md:gap-6 font-semibold md:text-white">
             {authContext.authenticated ? (
               <>
-                <NavLink to="/news" className="hover:text-gray-200 transition-all duration-200 ease-linear">News</NavLink>
-                <NavLink to={`/profile/${name}`} className="hover:text-gray-200 transition-all duration-200 ease-linear">Profile</NavLink>
-                <NavLink to="/create_post" className="hover:text-gray-200 transition-all duration-200 ease-linear">Write</NavLink>
-                <button onClick={onLogout} className="hover:text-gray-200 transition-all duration-200 ease-linear">Logout</button>
+                <NavLink to="/news" className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">News</NavLink>
+                <NavLink to={`/profile/${name}`} className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">Profile</NavLink>
+                <NavLink to="/create_post" className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">Write</NavLink>
+                <button onClick={onLogout} className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">Logout</button>
               </>
             ) : (
               <>
-                <NavLink to="/news" className="hover:text-gray-200 transition-all duration-200 ease-linear">News</NavLink>
-                <NavLink to="/create_post" className="hover:text-gray-200 transition-all duration-200 ease-linear">Write</NavLink>
-                <NavLink to="/login" className="hover:text-gray-200 transition-all duration-200 ease-linear">Login</NavLink>
+                <NavLink to="/news" className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">News</NavLink>
+                <NavLink to="/create_post" className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">Write</NavLink>
+                <NavLink to="/login" className="text-white no-underline hover:text-gray-300 transition-all duration-200 ease-linear">Login</NavLink>
               </>
             )}
           </div>
@@ -132,7 +132,7 @@ const Navbar = () => {
             </div>
             <button
               onClick={() => handleOpenModal("subscribe")}
-              className="px-6 py-2 text-blue-600 bg-white hover:bg-gray-200 rounded-md font-semibold hidden sm:block transition-all duration-200 ease-linear"
+              className="px-6 py-2 text-blue-600 bg-white hover:bg-gray-300 rounded-md font-semibold hidden sm:block transition-all duration-200 ease-linear"
             >
               Subscribe
             </button>
