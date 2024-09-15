@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import useApi from "../../utils/api"
-import { ExtractText, TimeFormat } from "../../utils"
+import { TimeFormat } from "../../utils"
 import { PostTypes } from "../Home/HomeMain"
+import { AuthContext } from "../../context/AuthContext"
+import Cookies from "js-cookie"
 
 const UserPosts = ({ name }: { name: string }) => {
     const api = useApi()
     const navigate = useNavigate()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
+    const {authenticated} = useContext<any>(AuthContext)
+    const username:any = Cookies.get('username')
     
     useEffect(() => {
         getUserPosts()
@@ -35,21 +39,15 @@ const UserPosts = ({ name }: { name: string }) => {
                     {
                         userPosts.map((post, i) => (
                             <div className="border-b-2 pb-3 flex flex-col gap-4" key={i}>
-                                <div className='flex gap-4 '>
+                                {authenticated && username === post.username && (
+                                <div className='flex gap-4 justify-end'>
                                     <button className="text-blue-600 cursor-pointer hover:underline text-sm" onClick={()=>navigate(`/post/${post.slug}/edit/`)}>Edit</button>
                                     <button onClick={(e:any)=>onDelete(e, post.slug)} className="text-red-600 cursor-pointer hover:underline text-sm">Delete</button>
-                                </div>
-                                <Link to={`/post/${post.slug}/`} className="text-xl font-semibold hover:text-blue-600">{post.title}</Link>
-                                <p>
-                                    {ExtractText(post?.description).slice(0, 200)}
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                    {post?.tag?.split(",")?.map((tag, i) => (
-                                        <Link key={i} to={`/search/${tag.toLowerCase()}`} className="py-[2px] rounded-md px-3 text-sm bg-blue-50 text-blue-600 hover:bg-white">#{tag}</Link>
-                                    ))}
-                                </div>
+                                </div>)}
+                                <Link to={`/post/${post.slug}/`} className="text-xl font-semibold text-black hover:text-blue-600 no-underline hover:underline ">{post.title}</Link>
                                 <div className="flex justify-between">
-                                    <Link to={`/profile/saad`} className="text-blue-600 cursor-pointer hover:underline">{post.username}</Link> <span className="text-sm">{TimeFormat(post.updated)}</span>
+                                    {/* <Link to={`/profile/saad`} className="text-blue-600 cursor-pointer hover:underline">{post.username}</Link>  */}
+                                    <span className="text-sm text-gray-500">{TimeFormat(post.updated)}</span>
                                 </div>
                             </div>
                         ))
