@@ -44,9 +44,9 @@ const Navbar = () => {
     );
   };
 
-  const searchNavigate = (e: any, id: any) => {
+  const searchNavigate = (e: any, slug: any) => {
     e.preventDefault();
-    navigate(`/post/${id}`);
+    navigate(`/post/${slug}`);
     handleCloseModal();
   };
 
@@ -162,7 +162,7 @@ const Navbar = () => {
               {searchResults.map((post, i) => (
                 <span
                   key={i}
-                  onClick={(e) => searchNavigate(e, post.id)}
+                  onClick={(e) => searchNavigate(e, post.slug)}
                   className="py-2 px-6 cursor-pointer border-b hover:bg-blue-100 hover:text-blue-600"
                 >
                   {post.title}
@@ -185,7 +185,7 @@ const Navbar = () => {
               <input type="email" placeholder="Email" className="rounded-md" />
               <button
                 type="submit"
-                className="rounded-md font-semibold bg-blue-200 text-blue-700 py-[10px] px-6 hover:bg-gray-100"
+                className="rounded-md font-semibold bg-blue-100 text-blue-700 py-[10px] px-6 hover:bg-blue-200 transition-all duration-150 ease-linear"
               >
                 Subscribe
               </button>

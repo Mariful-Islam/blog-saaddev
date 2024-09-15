@@ -87,7 +87,7 @@ const Comment = ({ slug }: { slug?: string | any }) => {
                     {comments?.map((comment:any, i:number) => (
                         <div className="flex flex-col gap-0" key={i}>
                             <div className="flex justify-between items-centers">
-                                <Link to={`/profile/${comment.username}`} className="font-semibold hover:text-blue-600 hover:underline cursor-pointer">{comment?.username}</Link> <span className="text-[12px] text-gray-500">{TimeFormat(comment?.updated)}</span>
+                                <Link to={`/profile/${comment.username}`} className="font-semibold no-underline text-black hover:text-blue-600 hover:underline cursor-pointer">{comment?.username}</Link> <span className="text-[12px] text-gray-500">{TimeFormat(comment?.updated)}</span>
                             </div>
                             <div>
 

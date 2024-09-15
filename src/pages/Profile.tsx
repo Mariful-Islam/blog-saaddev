@@ -7,7 +7,10 @@ import { CommentTypes } from "../components/post-view/Comment";
 import UserPosts from "../components/profile/UserPosts";
 import UserComments from "../components/profile/UserComments";
 import ProfileContext from "../context/ProrfileContext";
+
 import mail from "../assets/icons/mail.svg"
+import userIcon from '../assets/images/user.png'
+
 
 const Profile = () => {
     // const [profileImage, setProfileImage] = useState<File | Blob>();
@@ -46,10 +49,8 @@ const Profile = () => {
         }
     }
     const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-        // if (e.target.files) {
-        //     setProfileImage(e.target.files[0]);
-        // }
         console.log(e)
+        
     };
     const [open, setOpen] = useState<boolean>(false)
     console.log(profileContext?.profile)
@@ -59,11 +60,11 @@ const Profile = () => {
                 {user ?
                     <>
                         <div className="bg-blue-600 h-[150px]"></div>
-                        <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] border border-blue-600 group">
+                        <div className="absolute top-[85px] right-[50%] translate-x-[50%] rounded-full h-[120px] w-[120px] bg-white border border-blue-600 group">
                             <label htmlFor="profile_image">
 
                                 <img
-                                    src={user?.picture}
+                                    src={user?.picture ?? userIcon}
                                     alt={user.username}
                                     className="rounded-full h-[120px] w-[120px] group-hover:opacity-75 cursor-pointer"
                                 />
@@ -76,11 +77,11 @@ const Profile = () => {
                                 onChange={onChangeImage}
                             />
                         </div>
-                        <div className="pt-16 flex justify-center">
+                        <div className="mt-8 flex justify-center">
                             <strong className="text-2xl">{user?.name}</strong>
-                            {user?.username}
+                            <h1>{user?.username}</h1>
                         </div>
-                        <div className="pt-6 flex flex-col gap-6">
+                        <div className="flex flex-col gap-4">
                             <div className="flex justify-center items-center gap-4">
                                 {/* <span className="flex items-center gap-2"><Location className="h-6 w-6" /> Rajshahi, Bangladesh </span>  */}
                                 <span className="flex items-center gap-2"><img src={mail} alt="email" /> {user?.email}</span>
