@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, ChevronUp } from '../Icons';
+import { IoIosArrowUp, IoIosArrowDown  } from "react-icons/io";
+
 
 // Define the type for the Category structure
 interface Category {
@@ -49,7 +50,7 @@ const CategoryComponent: React.FC<{ category: Category }> = ({ category }) => {
   return (
     <li className="relative">
       <button onClick={handleToggle} className={`cursor-pointer px-4 py-2 ${ isOpen ? 'text-blue-400': ''} hover:text-blue-400 group flex flex-nowrap items-center gap-2`}>
-        {category.name} {isOpen ? <ChevronDown className='stroke-blue-400' /> : <ChevronUp className='stroke-white group-hover:stroke-blue-400'/>}
+        {category.name} {isOpen ? <IoIosArrowUp/> : <IoIosArrowDown/>}
       </button>
 
       {isOpen && category.subcategories && category.subcategories.length > 0 && (

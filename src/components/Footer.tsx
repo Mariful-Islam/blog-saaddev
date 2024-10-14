@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="flex flex-col gap-6 justify-center items-center md:items-start">
                 <strong className="text-4xl">Mariful Islam</strong>
                 <div className="flex flex-col gap-0">
-                    Software engineer at Bytenyx Limited
+                    Software engineer at Bytenyx Limited <br />
                     mariful@heliosinsider.com
                     <Link to="https://saaddev-io.vercel.app/" target="__blank" className="flex items-center gap-1 text-black hover:text-blue-600 no-underline hover:underline">website <HiArrowTopRightOnSquare/></Link>
                 </div>
