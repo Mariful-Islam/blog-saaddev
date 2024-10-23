@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { Carousel, TimeFormat } from "../../utils";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "../../context/postsContext";
 import Category from "./category/Category";
 import { extractImageUrlFromHTML } from "../../utils/extractImageUrlFromHTML";
 
 import noImage from '../../assets/images/no-photo.jpg'
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/rootReducer";
+import { useEffect } from "react";
+import { fetchPosts } from "../../redux/postsSlice";
+import { useDispatch } from "react-redux";
 
 export interface PostTypes {
     id: number;
@@ -37,11 +40,16 @@ const items1 = [
 ];
 
 const HomeMain = () => {
-    const { posts, getPosts }: any = useContext(PostsContext)
-    useEffect(() => {
-        getPosts()
-    }, [])
+    const dispatch = useDispatch()
+    const { posts, isLoaded } = useSelector((state: RootState) => state.posts)
 
+    useEffect(()=>{
+        if(!isLoaded){
+            dispatch(fetchPosts() as any)
+        }
+    }, [dispatch])
+
+    console.log(posts, isLoaded)
 
     return (
         <div>
