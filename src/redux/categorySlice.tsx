@@ -4,10 +4,12 @@ import useApi from "../utils/api";
 
 interface Categories{
     results: any[];
+    isLoaded: boolean;
 }
 
 const initialState: Categories = {
-    results: []
+    results: [],
+    isLoaded: false
 }
 
 
@@ -17,6 +19,7 @@ const categorySlice = createSlice({
     reducers: {
         setCategory: (state, action) => {
             state.results = action.payload
+            state.isLoaded = true
         }
     }
 })

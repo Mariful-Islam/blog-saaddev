@@ -10,10 +10,10 @@ import { fetchCategory } from '../../../redux/categorySlice'
 function Category() {
   const api = useApi()
   const dispatch = useDispatch()
-  const {results} = useSelector((state:RootState)=>state.categories)
+  const { results, isLoaded } = useSelector((state:RootState)=>state.categories)
 
   useEffect(()=>{
-    if (results.length === 0) {
+    if (!isLoaded) {
       dispatch(fetchCategory() as any)
     }
   }, [dispatch])
