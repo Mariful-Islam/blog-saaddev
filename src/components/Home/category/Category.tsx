@@ -2,25 +2,26 @@ import { useEffect, useState } from 'react'
 import useApi from '../../../utils/api'
 import Categories from '../../NestedCategory'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
+import { fetchCategory } from '../../../redux/categorySlice'
 
 function Category() {
   const api = useApi()
-  const [categories, setCategories] = useState<any>()
-
-  const fetchCategories = () => {
-    api.getCategories().then((response:any)=>{
-      setCategories(response.data[0].category)
-    }).catch(()=>toast.error("Fetch categories error."))
-  }
+  const dispatch = useDispatch()
+  const {results} = useSelector((state:RootState)=>state.categories)
 
   useEffect(()=>{
-    fetchCategories()
-  },[])
+    if (results.length === 0) {
+      dispatch(fetchCategory() as any)
+    }
+  }, [dispatch])
 
-  console.log(categories)
+
   return (
     <>
-      <Categories categories={categories}/>
+      <Categories categories={results}/>
     </>
   )
 }

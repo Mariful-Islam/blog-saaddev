@@ -10,6 +10,8 @@ import AuthProvider from './context/AuthContext'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import EditPost from './pages/EditPost'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <PostsProvider>
         <ProfileProvider>
           <AuthProvider>
+            <Provider store={store}>
             <ScrollToTop />
             <Routes>
               <Route element={<RootLayout />} >
@@ -31,6 +34,7 @@ function App() {
               <Route path="signup" element={<Signup />} />
             </Routes>
             <ToastContainer/>
+            </Provider>
           </AuthProvider>
         </ProfileProvider>
       </PostsProvider>
