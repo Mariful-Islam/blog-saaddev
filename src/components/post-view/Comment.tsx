@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import useApi from "../../utils/api"
 import { TimeFormat } from "../../utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 export interface CommentTypes {
     id: number;
@@ -21,6 +22,7 @@ const Comment = ({ slug }: { slug?: string | any }) => {
     const [open, setOpen] = useState<boolean>(false)
     const username = Cookies.get("username") || ""
     const { authenticated } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getComments()
@@ -47,8 +49,13 @@ const Comment = ({ slug }: { slug?: string | any }) => {
             }
             e.target.reset()
             getComments()
-        } catch (error) {
+        } catch (error:any) {
             console.log("Error in comment", error)
+            toast.error(error.response.data.data)
+        }
+
+        if(!username && !authenticated) {
+            navigate('/login')
         }
     }
     const handleEdit = async (e: any, comment_id?: any) => {
@@ -112,14 +119,24 @@ const Comment = ({ slug }: { slug?: string | any }) => {
             </div>
             <div className="pt-10 flex flex-col gap-6">
                 <strong>Write Comment</strong>
-                <form className="" onSubmit={handleComment}>
+                <form className="" 
+                    onSubmit={(e)=>{
+                        if(username && authenticated){
+                            handleComment(e)
+                        }else{
+                            console.log('hgyuhg')
+                            e.preventDefault()
+                            navigate(`/login`)
+                        }
+                    }}
+                >
                     {!username ?
-                        <input type="email" name="email" placeholder="Email" className="border-gray-300 w-full rounded-md mb-4" required />
+                        <input type="email" name="email" placeholder="Email" className="border-gray-300 w-full rounded-md mb-4" />
                         :
                         <></>
                     }
 
-                    <input type="text" name="comment" placeholder="Write your comment..." className="w-full border-gray-300 rounded-md mb-4" required />
+                    <input type="text" name="comment" placeholder="Write your comment..." className="w-full border-gray-300 rounded-md mb-4" />
                     <button type="submit" className="px-6 py-2 bg-blue-600 text-white text-md rounded-md float-right hover:bg-blue-700">Comment</button>
                 </form>
 

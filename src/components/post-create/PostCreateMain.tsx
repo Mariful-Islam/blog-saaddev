@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { QuillEditor, Select } from "../../utils";
 import useApi from "../../utils/api";
-import { PostsContext } from "../../context/postsContext";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import SEO from "./SEO";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { fetchPosts } from "../../redux/postsSlice";
+import { useDispatch } from "react-redux";
 
 export interface FormDataType {
   username: string;
@@ -19,13 +20,13 @@ export interface FormDataType {
 }
 
 const PostCreateMain = () => {
+  const dispatch = useDispatch()
   const authContext = useContext(AuthContext)
   const username = Cookies.get("username")
   const [formData, setFormData] = useState<any>({ username: username });
 
   const [response, setResponse] = useState("");
   const api = useApi();
-  const { getPosts }: any = useContext(PostsContext);
   const navigate = useNavigate();
   
 
@@ -70,7 +71,7 @@ const PostCreateMain = () => {
         .catch((error) => console.log(error));
       setFormData({});
       e.target.reset();
-      getPosts();
+      dispatch(fetchPosts() as any)
       navigate("/");
     } else {
       console.log("Form is empty ");
