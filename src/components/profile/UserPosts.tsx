@@ -5,9 +5,12 @@ import { TimeFormat } from "../../utils"
 import { PostTypes } from "../Home/HomeMain"
 import { AuthContext } from "../../context/AuthContext"
 import Cookies from "js-cookie"
+import { useDispatch } from "react-redux"
+import { fetchPosts } from "../../redux/postsSlice"
 
 const UserPosts = ({ name }: { name: string }) => {
     const api = useApi()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userPosts, setUserPosts] = useState<PostTypes[]>([])
     const {authenticated} = useContext<any>(AuthContext)
@@ -29,7 +32,8 @@ const UserPosts = ({ name }: { name: string }) => {
         e.preventDefault()
         api.deletePost(slug).then((response) => {
             console.log(response.data)
-            navigate('/')
+            dispatch(fetchPosts() as any)
+            getUserPosts()
         }).catch((error) => console.log(error))
     }
     return (
