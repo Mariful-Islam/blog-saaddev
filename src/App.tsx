@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import EditPost from './pages/EditPost'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import Category from './pages/Category'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="profile/:name" element={<Profile />} />
                 <Route path="post/:slug" element={<PostView />} />
                 <Route path="post/:slug/edit/" element={<EditPost />} />
+                <Route path="category/:name" element={<Category/>}/>
               </Route>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />

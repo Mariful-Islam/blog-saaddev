@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import { fetchCategory } from '../../../redux/categorySlice'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 
 function Category() {
 
@@ -15,6 +18,10 @@ function Category() {
       dispatch(fetchCategory() as any)
     }
   }, [dispatch])
+
+  if(!isLoaded) {
+    return <><Skeleton count={1} height={35}/></>
+  }
 
 
   return (

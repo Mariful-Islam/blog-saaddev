@@ -31,7 +31,8 @@ const Profile = () => {
     const getUser = () => {
         api.getUser(name).then((response) => setUser(response.data)).catch((error) => console.log(error))
     }
-    console.log(user)
+    
+
     const getUserPosts = async () => {
         try {
             const response = await api.userPosts(name ? name : "")
@@ -40,6 +41,7 @@ const Profile = () => {
             console.log("Error fetching user posts", error)
         }
     }
+
     const getUserComments = async () => {
         try {
             const response = await api.userComments(name ? name : "")
@@ -48,12 +50,14 @@ const Profile = () => {
             console.log("Error fetching user posts", error)
         }
     }
+
     const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         console.log(e)
         
     };
+
     const [open, setOpen] = useState<boolean>(false)
-    console.log(profileContext?.profile)
+
     return (
         <div className="px-4 md:px-[10%] flex flex-col gap-8">
             <div className="h-[400px] relative border border-blue-600">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoIosArrowUp, IoIosArrowDown  } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 
 // Define the type for the Category structure
@@ -69,11 +70,13 @@ const CategoryComponent: React.FC<{ category: Category }> = ({ category }) => {
                 subcategory.subcategories.length > 0 && (
                   <ul className="list-none absolute top-0 left-full bg-white shadow-lg w-fit text-nowrap z-10">
                     {subcategory?.subcategories?.map((subSubcategory) => (
-                      <li key={subSubcategory.id}>
-                        <span className="cursor-pointer block px-4 py-2 hover:bg-blue-100 text-black hover:text-blue-600">
-                          {subSubcategory.name}
-                        </span>
-                      </li>
+                      <Link to={`/category/${subSubcategory.name.toLowerCase().split(' ').join('-')}`} className='no-underline'>
+                        <li key={subSubcategory.id}>
+                          <span className="cursor-pointer block px-4 py-2 hover:bg-blue-100 text-black hover:text-blue-600">
+                            {subSubcategory.name}
+                          </span>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 )}
@@ -89,7 +92,7 @@ const CategoryComponent: React.FC<{ category: Category }> = ({ category }) => {
 const Categories: React.FC<{ categories: Category[] }> = ({ categories }) => {
   return (
     <nav className="bg-gray-800 text-white">
-      <ul className="flex space-x-4 p-4 list-none">
+      <ul className="flex space-x-4 px-4 list-none">
         {categories?.map((category) => (
           <CategoryComponent key={category.id} category={category} />
         ))}
