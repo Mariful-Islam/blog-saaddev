@@ -1,8 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { fetchPosts } from "../../redux/postsSlice";
-import { RootState } from "../../redux/rootReducer";
 import { TimeFormat } from "../../utils";
 import { Link } from "react-router-dom";
 import { extractImageUrlFromHTML } from "../../utils/extractImageUrlFromHTML";
@@ -10,23 +5,20 @@ import noImage from '../../assets/images/no-photo.jpg'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-function Posts() {
-  const dispatch = useDispatch();
-  const { posts, isLoaded } = useSelector((state: RootState) => state.posts);
+interface PostProps {
+  posts: any[];
+  isLoaded: boolean;
+}
 
-  useEffect(() => {
-    if (!isLoaded) {
-      dispatch(fetchPosts() as any);
-    }
-  }, [dispatch]);
+function Posts({posts, isLoaded}: PostProps) {
 
   return (
     <>
-      <div className="pt-12 px-4 md:px-[10%]">
+      <div className="pt-12">
         <strong>Total: {!isLoaded ? <Skeleton count={1} width={30}/> : posts.length}</strong>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 py-8 px-4 md:px-[10%]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8 py-8">
         
         {isLoaded ? posts?.map((post: any, index: number) => (
           <div key={index} className="rounded-md flex flex-col gap-1">
@@ -57,15 +49,15 @@ function Posts() {
             </div>
           </div>
         )): 
-          [1,2,3,4,5,6,7,8,9,10].map((_, index)=>(
-            <>
-            <Skeleton key={index} count={1} height={300} />
-            <Skeleton key={index} count={1} />
-            <div className="flex justify-between items-center">
-              <Skeleton key={index} count={1} width={100}/>
-              <Skeleton key={index} count={1} width={150}/>
+          [...Array(10)].map((_, index)=>(
+            <div key={index}>
+              <Skeleton count={1} height={300} />
+              <Skeleton count={1} />
+              <div className="flex justify-between items-center">
+                <Skeleton count={1} width={100}/>
+                <Skeleton count={1} width={150}/>
+              </div>
             </div>
-            </>
           ))
         }
       </div>
