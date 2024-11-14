@@ -1,6 +1,11 @@
+import { useDispatch } from "react-redux";
 import { Carousel } from "../../utils";
 import Category from "./category/Category";
 import Posts from "./Posts";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/rootReducer";
+import { useEffect } from "react";
+import { fetchPosts } from "../../redux/postsSlice";
 
 
 export interface PostTypes {
@@ -33,6 +38,14 @@ const items1 = [
 ];
 
 const HomeMain = () => {
+    const dispatch = useDispatch();
+    const { posts, isLoaded } = useSelector((state: RootState) => state.posts);
+  
+    useEffect(() => {
+      if (!isLoaded) {
+        dispatch(fetchPosts() as any);
+      }
+    }, [dispatch]);
 
     return (
         <div>
@@ -41,8 +54,10 @@ const HomeMain = () => {
             </div>
             
             <Category />
-            
-            <Posts/>
+
+            <div className="px-4 md:px-[10%]">
+                <Posts posts={posts} isLoaded={isLoaded}/>
+            </div>
             
         </div>
     )

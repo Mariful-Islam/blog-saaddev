@@ -69,8 +69,8 @@ const CategoryComponent: React.FC<{ category: Category }> = ({ category }) => {
                 subcategory.subcategories &&
                 subcategory.subcategories.length > 0 && (
                   <ul className="list-none absolute top-0 left-full bg-white shadow-lg w-fit text-nowrap z-10">
-                    {subcategory?.subcategories?.map((subSubcategory) => (
-                      <Link to={`/category/${subSubcategory.name.toLowerCase().split(' ').join('-')}`} className='no-underline'>
+                    {subcategory?.subcategories?.map((subSubcategory, index) => (
+                      <Link key={index} to={`/category/${subSubcategory.name.toLowerCase().split(' ').join('-')}`} className='no-underline'>
                         <li key={subSubcategory.id}>
                           <span className="cursor-pointer block px-4 py-2 hover:bg-blue-100 text-black hover:text-blue-600">
                             {subSubcategory.name}
