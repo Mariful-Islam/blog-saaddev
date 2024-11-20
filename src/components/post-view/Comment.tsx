@@ -15,6 +15,7 @@ export interface CommentTypes {
     updated: string;
     post_id: number;
     post_title: string;
+    post_slug: string;
 }
 const Comment = ({ slug }: { slug?: string | any }) => {
     const api = useApi()

@@ -8,7 +8,7 @@ const UserComments = ({ userComments }: { userComments: CommentTypes[] }) => {
                 <>
                     {userComments.map((comment, i) => (
                         <div className="border-b pb-1" key={i}>
-                            You commented <b>{comment.text}</b> on this post <Link to={`/post/${comment.post_id}`} className="font-semibold underline">{comment.post_title}</Link>
+                            You commented <b>{comment.text}</b> on this post <Link to={`/post/${comment.post_slug}`} className="font-semibold underline">{comment.post_title}</Link>
                         </div>
                     ))}
                 </>
